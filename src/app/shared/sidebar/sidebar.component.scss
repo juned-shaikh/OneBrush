@@ -1,0 +1,16 @@
+.logo-icon {
+    width: 145px;
+}
+.sm-logo-icon{
+    width: 65px;
+}
+.sidebar .navigation li.active > a {
+    color: #000;
+    text-decoration: none;
+    background: lightgray;
+}
+.sidebar .navigation li:hover > a {
+    color: #333;
+    text-decoration: none;
+    background: rgb(211 211 211);
+}

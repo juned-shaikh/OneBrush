@@ -1,0 +1,76 @@
+<div class="bg-login">
+	<!--wrapper-->
+	<div class="wrapper">
+		<div class="sqaure"></div>
+		<div class="sqaure1"></div>
+		<div class="sqaure2"></div>
+		<div class="sqaure3"></div>
+		<div class="sqaure4"></div>
+		<div class="sqaure5"></div>
+		<div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
+			<div class="container-fluid">
+				<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
+					<div class="col mx-auto bg-card">
+
+						<div class="card crd-new">
+							<div class="card-new log-crd">
+								<div class="inner-6 ">
+									<div class="col-md-6  rounded">
+										<div class=" p-4 rounded">
+											<a class="logo-url" href="#"><img class="logo-url"
+													src="assets/images/logo.png" width="80" alt="" /></a>
+											<div class="text-center">
+												<h2 class="" style="font-size: 16px;">Sign in</h2>
+												<p _ngcontent-fvt-c160="">Please Enter your login details below</p>
+											</div>
+											<div class="form-body">
+												<form name="loginForm" [formGroup]="loginForm" (submit)="login()"
+													novalidate fxLayoutAlign="center start">
+													<div fxLayout="column" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="80"
+														fxFlex.lg="70" fxFlex.xl="70" fxLayoutAlign="start">
+														<mat-form-field class="full-width" color="primary"
+															appearance="outline">
+															<mat-label class="required-astrick">Email</mat-label>
+															<input class="mrgn-t-none" matInput placeholder="Email"
+																type="text" name="email" formControlName="email">
+															<span matSuffix><i
+																	class="material-icons">verified_user</i></span>
+															<mat-error *ngIf="loginForm.invalid">
+																Email is required.
+															</mat-error>
+														</mat-form-field>
+														<mat-form-field class="full-width" appearance="outline">
+															<mat-label class="required-astrick">Password</mat-label>
+															<input class="mrgn-t-none" matInput placeholder="*********"
+																type="password" name="password"
+																formControlName="password">
+															<span matSuffix><i class="material-icons">vpn_key</i></span>
+															<mat-error *ngIf="loginForm.invalid">
+																Password is required.
+															</mat-error>
+														</mat-form-field>
+														<div class="col-5 mx-auto mb-2">
+															<div class="d-grid">
+																<button type="submit" class="btn btn-secondary">Sign in</button>
+															</div>
+														</div>
+														<div class="col-5 mx-auto mb-2">
+															<a [routerLink]="['/forgot-password']" class="forgrtpsd">Forgot
+																Password?</a>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6" >
+										<img src="assets/images/login-images/login-img.png" style="width: 100%;">
+									</div>
+								</div>
+							</div>
+							<!--end row-->
+						</div>
+					</div>
+				</div>
+				<!--end wrapper-->
+			</div>
