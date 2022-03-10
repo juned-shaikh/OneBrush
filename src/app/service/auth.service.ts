@@ -74,5 +74,20 @@ export class AuthService {
     return this.http.post(Links.GET_USER_DETAIL+'?uuid='+uuid,{},httpOptions)
        .pipe(map((response: any) => response));
   }
-
+  addWelcomeScreen(form:any) {
+    const httpUploadOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'authKey': 'a22f96db8bddb95ad0dc60dad56aaed6',
+        // 'auth-token': String(authToken)
+      }),
+    
+    };
+    const formData = new FormData();
+    formData.append('title', form.title)
+    formData.append('descriptions', form.descriptions);
+    formData.append('docfile', form.docfile)
+    return this.http.post(Links.WELCOME_SCREEN, formData, httpUploadOptions)
+      .pipe(map((response: any) => response));
+  }
 }

@@ -20,4 +20,7 @@ export class Links {
     public static USER_VERIFY_REQUEST = Links.BASE + '/user/verify-request';
     public static GET_USER_DETAIL = Links.BASE +'/user/get-user';
     // public static USER_VERIFY_ACCOUNT_REQUEST = Links.BASE + '/user/verify-user-account';
+    
+    //WelcomeScreen
+    public static WELCOME_SCREEN = Links.BASE + '/admin/add_welcome_carousel';
 }
