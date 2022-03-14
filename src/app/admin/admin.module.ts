@@ -22,6 +22,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component'
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     ChangePasswordPopupComponent,
     UserDetailsComponent,
     WelcomeScreenComponent,
+    MessageComponent,
 
   ],
  
