@@ -39,14 +39,16 @@ export class ChangePasswordPopupComponent implements OnInit {
     if (this.changePasswordForm.valid) {
       this.threeDService.show();
       let adminId: any = sessionStorage.getItem("adminId");
+      let password: any = sessionStorage.getItem("password");
+
       let reqData = {
         id: parseInt(JSON.parse(adminId)),
         newPassword: this.changePasswordForm.value.new_password,
-        oldPassword: this.changePasswordForm.value.old_password,
+        oldPassword: password,
       }
       this.authService.changePassword(reqData).subscribe(res => {
         this.threeDService.hide();
-        if (res.response == 200 && res.status == 'SUCCESS') {
+        if (res.responseCode == 200) {
           this.toastr.success(res.message);
           this.dialogRef.close();
         } else {

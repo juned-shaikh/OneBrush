@@ -45,6 +45,8 @@ export class LoginComponent implements OnInit {
         if (res.responseCode == 200) {
           sessionStorage.setItem("adminDetail", JSON.stringify(res.data));
           sessionStorage.setItem("Token", JSON.stringify(res.Token));
+          sessionStorage.setItem("password", JSON.stringify(this.loginForm.value.password));
+
           this.toastr.success(res.message);
           this.router.navigate(['admin']);
         } else {
