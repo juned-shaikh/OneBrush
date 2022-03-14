@@ -18,7 +18,11 @@ import { MatTableModule } from '@angular/material/table'
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog'
 import { ChangePasswordPopupComponent } from './change-password-popup/change-password-popup.component';
-import { UserDetailsComponent } from './user-details/user-details.component'
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component'
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { ScreenContentComponent } from './screen-content/screen-content.component';
 
 @NgModule({
   imports: [
@@ -34,7 +38,9 @@ import { UserDetailsComponent } from './user-details/user-details.component'
     MatIconModule,
     MatTableModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    NgbCarouselModule,
+    CarouselModule
   ],
   declarations: [
     ContentLayoutComponent,
@@ -42,6 +48,8 @@ import { UserDetailsComponent } from './user-details/user-details.component'
     UserManagementComponent,
     ChangePasswordPopupComponent,
     UserDetailsComponent,
+    WelcomeScreenComponent,
+    ScreenContentComponent,
 
   ],
  

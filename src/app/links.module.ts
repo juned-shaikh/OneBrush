@@ -21,4 +21,12 @@ export class Links {
     public static USER_VERIFY_REQUEST = Links.BASE + '/user/verify-request';
     public static GET_USER_DETAIL = Links.BASE +'/user/get-user';
     // public static USER_VERIFY_ACCOUNT_REQUEST = Links.BASE + '/user/verify-user-account';
+    
+    //WelcomeScreen
+    public static ADD_WELCOME_SCREEN = Links.BASE + '/api/admin/add_welcome_carousel';
+    public static  GET_WELCOME_SCREEN = Links.BASE + '/api/admin/get_welcome_carousel';
+    public static  UPDATE_WELCOME_SCREEN = Links.BASE + '/api/admin/update_welcome_carousel';
+    public static  DELETE_WELCOME_SCREEN = Links.BASE + '/api/admin/delete_welcome_carousel';
+
+   
 }
