@@ -5,13 +5,30 @@ import { ToastrService } from 'ngx-toastr';
 import { Links } from '../links.module';
 import { map } from 'rxjs/operators';
 
+const apiToken = sessionStorage.getItem("Token");
+console.log(apiToken,'check--------------');
+
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'authKey': 'a22f96db8bddb95ad0dc60dad56aaed6'
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Authorization': `Bearer ` + apiToken
   })
 };
+// const httpOptions = {
+//   headers: new HttpHeaders({
+//     'Content-Type': 'application/json',
+//     'Authorization': `Bearer ${localStorage.getItem(Constants.localStorage.oAuth_token)}`
+//   })
+// };
 
+// const httpUploadOptions = {
+//   reportProgress: true,
+//   headers: new HttpHeaders({
+//     'Accept': 'application/json',
+//     'Authorization': `Bearer ${localStorage.getItem(Constants.localStorage.oAuth_token)}`
+//   })
+// };
 @Injectable({
   providedIn: 'root'
 })
@@ -20,8 +37,10 @@ export class AuthService {
   constructor(private router: Router, private toastr: ToastrService,
     private http: HttpClient) { }
 
+  token = sessionStorage.getItem('Token')
+
   login(data: any) {
-    return this.http.post(Links.LOGIN, data, httpOptions)
+    return this.http.post(Links.LOGIN, data)
       .pipe(map((response: any) => response));
   }
 
@@ -74,20 +93,45 @@ export class AuthService {
     return this.http.post(Links.GET_USER_DETAIL+'?uuid='+uuid,{},httpOptions)
        .pipe(map((response: any) => response));
   }
-  addWelcomeScreen(form:any) {
-    const httpUploadOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'authKey': 'a22f96db8bddb95ad0dc60dad56aaed6',
-        // 'auth-token': String(authToken)
-      }),
-    
-    };
+
+
+
+    // const httpUploadOptions = {
+    //   headers: new HttpHeaders({
+    //     'Accept': 'application/json',
+    //     'authKey': 'a22f96db8bddb95ad0dc60dad56aaed6',
+    //     // 'auth-token': String(authToken)
+    //   }),
+
+    addWelcomeScreen(form:any) {
     const formData = new FormData();
     formData.append('title', form.title)
     formData.append('descriptions', form.descriptions);
     formData.append('docfile', form.docfile)
-    return this.http.post(Links.WELCOME_SCREEN, formData, httpUploadOptions)
+    return this.http.post(Links.ADD_WELCOME_SCREEN, formData, httpOptions)
       .pipe(map((response: any) => response));
   }
+
+  updateWelcomeScreen(form:any,id:any) {
+  const formData = new FormData();
+  formData.append('id', id);
+  formData.append('title', form.title)
+  formData.append('descriptions', form.descriptions);
+  formData.append('docfile', form.docfile)
+  return this.http.put(Links.UPDATE_WELCOME_SCREEN, formData, httpOptions)
+    .pipe(map((response: any) => response));
+}
+
+deleteWelcomeScreen(id: any) {
+  return this.http.delete(Links.DELETE_WELCOME_SCREEN + '?caroselId=' + id , httpOptions)
+    .pipe(map((response: any) => response));
+}
+
+  getWelcomeScreen(){
+    return this.http.get(Links.GET_WELCOME_SCREEN).pipe(map((response: any) => response)); 
+  }
+// const httpOptions = {
+    //   headers: new HttpHeaders()
+    //     .set('Authorization', `Bearer ${this.token}`)
+    // };
 }
