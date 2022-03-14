@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,8 @@ import * as CryptoJS from 'crypto-js';
 export class EncryptDecryptService {
 
   secretKey: any = [
-    "1=)viRTZC`EV5g9(", "6h7ZnC_Em5^&(ScK","(-~)da?ltBr|u>VF","xsYJlomb~of!GW^)","jJI<)GVEx7Yz2m!Q","Ic<Kd0Ckek||D&hl","NW^!<XtZ<~0cZgJ&",
+    "1=)viRTZC`EV5g9(", "6h7ZnC_Em5^&(ScK","(-~)da?ltBr|u>VF","xsYJlomb~of!GW^)",
+    "jJI<)GVEx7Yz2m!Q","Ic<Kd0Ckek||D&hl","NW^!<XtZ<~0cZgJ&",
     "sUxorEW*3Q(VjDc>","l04=f6J~zOb9sB9£","!-@b)oYO1Nh5(V_r","j~=@=0Ue6o6Rov@Q",
     "xPXZIzeU>H`xyA_g",
     "O__5UsT*uAaBZ=2g",
@@ -158,30 +160,8 @@ export class EncryptDecryptService {
     "<6dixH`$S4ogoE9T",
     "A&@+Yg&pp(DT*Ty_"]
 
-
- 
   constructor() { }
 
-  // encryptData(data:any): any {
-  //   const configuration = {
-  //     keySize: 128/8,
-  //     iv: CryptoJS.enc.Base64.parse('ADVANTALBPCLSCRA'),
-  //     mode: CryptoJS.mode.CBC
-  //   };
-
-  //   try {
-  //     //console.log("authId-->",authId);
-  //    let temp = CryptoJS.AES.encrypt(JSON.stringify(data), this.secretKey[2],configuration).toString()
-  //     console.log("key-->",this.secretKey[2]);
-  //     console.log("encrypt",CryptoJS.AES.encrypt(JSON.stringify(data), this.secretKey[2],configuration).toString());
-  //     console.log('decrpt',this.decryptData(temp,this.secretKey[2]));
-      
-  //     return CryptoJS.AES.encrypt(JSON.stringify(data), this.secretKey[2],configuration).toString();
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
-  
   encryptData(keys:any, value:any){
     var key = CryptoJS.enc.Utf8.parse(keys);
     var iv = CryptoJS.enc.Utf8.parse("ADVANTALBPCLSCRA");
@@ -192,37 +172,21 @@ export class EncryptDecryptService {
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.Pkcs7
     });
-
     return encrypted.toString();
   }
-
-
-  decryptData(data:any,authId:any): any  {
-    console.log("secretKey",this.secretKey[authId]);
-    console.log("data",data);
   
-    const configuration = {
-      keySize: 128/8,
-      iv: CryptoJS.enc.Utf8.parse('ADVANTALBPCLSCRA'),
-      mode: CryptoJS.mode.CBC
-    };
-    
-    try {
 
-
-      
-      const bytes = CryptoJS.AES.decrypt(data, this.secretKey[authId],configuration);
-      console.log("decrypt 1",bytes);
-
-      if (bytes.toString()) {
-        console.log("decrypt 1",JSON.parse(bytes.toString(CryptoJS.enc.Utf8)));
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      }
-      return data;
-    } catch (e) {
-      console.log(e);
+    //The get method is use for decrypt the value.
+    decrptData(keys:any, value:any){
+      var key = CryptoJS.enc.Utf8.parse(keys);
+      var iv = CryptoJS.enc.Utf8.parse("ADVANTALBPCLSCRA");
+      var decrypted = CryptoJS.AES.decrypt(value, key, {
+          keySize: 128 / 8,
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7
+      });
+      return decrypted.toString(CryptoJS.enc.Utf8);
     }
-
-}
 
 }

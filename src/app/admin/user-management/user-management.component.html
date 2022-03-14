@@ -20,7 +20,7 @@
 </div>
 </div>
 <div class="user-manage-list">
-	
+	<!-- {{userData.name}} -->
 	<mat-card class="footer-adjust">
 		<div class="table-responsive">
 			<div class="table-height">
@@ -35,7 +35,7 @@
 					<th mat-header-cell *matHeaderCellDef>Firstname</th>
 					<td mat-cell *matCellDef="let element">
 						<div fxLayoutAlign="start center">
-							<div class="make-ellipse">{{element.firstName}} </div>
+							<div class="make-ellipse">{{element.name}} </div>
 						</div>
 					</td>
 				</ng-container>
@@ -43,7 +43,7 @@
 					<th mat-header-cell *matHeaderCellDef>Lastname</th>
 					<td mat-cell *matCellDef="let element">
 						<div fxLayoutAlign="start center">
-							<div class="make-ellipse">{{element.lastName}} </div>
+							<div class="make-ellipse">{{element.surname}} </div>
 						</div>
 					</td>
 				</ng-container>
@@ -51,7 +51,7 @@
 					<th mat-header-cell *matHeaderCellDef>Email</th>
 					<td mat-cell *matCellDef="let element">
 						<div fxLayoutAlign="start center">
-							<div class="make-ellipse">{{element.email}} </div>
+							<div class="make-ellipse">{{element.emailAddress}} </div>
 						</div>
 					</td>
 				</ng-container>
@@ -67,7 +67,7 @@
 					<th mat-header-cell *matHeaderCellDef>age</th>
 					<td mat-cell *matCellDef="let element">
 						<div fxLayoutAlign="start center">
-							<div class="make-ellipse">{{element.age}} </div>
+							<div class="make-ellipse">{{this.calculateAge(element.dateOfBirth)}} </div>
 						</div>
 					</td>
 				</ng-container>
@@ -92,6 +92,18 @@
 					<td mat-cell *matCellDef="let element">
 						<div fxLayoutAlign="start center">
 							<div class="make-ellipse">{{element.updationDate | date:'dd/MM/yyyy HH:mm'}} </div>
+						</div>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="Block/Unblock User">
+					<th mat-header-cell *matHeaderCellDef>Block/Unblock User</th>
+					<td mat-cell *matCellDef="let element">
+						<div fxLayoutAlign="start center">
+							<div class="make-ellipse">
+								<mat-slide-toggle [checked]="element.isBlocked" class="example-margin"
+										(change)="blockUnblockUser(element.uuid ,$event)" color="primary">
+									</mat-slide-toggle>
+							</div>
 						</div>
 					</td>
 				</ng-container>
@@ -127,8 +139,12 @@
                *ngIf="userData.length === 0">No Data Available
             </div>
 			<div class="pagination">
-				<mat-paginator #paginator [length]="noOfRecors" [pageSize]="selection.size"
-					[pageSizeOptions]="[10, 25, 50]" (page)="getPaginatorData($event)"></mat-paginator>
+			<mat-paginator #paginator 
+				[length]="noOfRecors"
+				 [pageSize]="selection.size"
+				[pageSizeOptions]="[10, 25, 50]"
+				 (page)="getPaginatorData($event)">
+			</mat-paginator>
 			</div>
 		</div>
 
