@@ -14,7 +14,8 @@ export class Links {
     public static VERIFY_RESET_PASSWORD_REQUEST = Links.BASE + '/admin/verify-reset-password-request';
 
     //USERS
-    public static USER_LIST = Links.BASE + '/user/get-all-users';
+    public static USER_LIST = Links.BASE + '/api/user/get_all_users_account';
+    public static BLOCK_UNBLOCK_USER = Links.BASE + '/api/admin/block_user';
     public static UPDATE_USER_STATUS = Links.BASE + '/user/update-status';
     public static USER_RESET_PASSWORD = Links.BASE + '/user/reset-password';
     public static USER_VERIFY_REQUEST = Links.BASE + '/user/verify-request';
@@ -22,5 +23,10 @@ export class Links {
     // public static USER_VERIFY_ACCOUNT_REQUEST = Links.BASE + '/user/verify-user-account';
     
     //WelcomeScreen
-    public static WELCOME_SCREEN = Links.BASE + '/admin/add_welcome_carousel';
+    public static ADD_WELCOME_SCREEN = Links.BASE + '/api/admin/add_welcome_carousel';
+    public static  GET_WELCOME_SCREEN = Links.BASE + '/api/admin/get_welcome_carousel';
+    public static  UPDATE_WELCOME_SCREEN = Links.BASE + '/api/admin/update_welcome_carousel';
+    public static  DELETE_WELCOME_SCREEN = Links.BASE + '/api/admin/delete_welcome_carousel';
+
+   
 }

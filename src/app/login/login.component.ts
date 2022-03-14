@@ -44,9 +44,8 @@ export class LoginComponent implements OnInit {
         this.ThreeDService.hide();
         if (res.responseCode == 200) {
           sessionStorage.setItem("adminDetail", JSON.stringify(res.data));
-          sessionStorage.setItem("Token", JSON.stringify(res.Token));
           sessionStorage.setItem("password", JSON.stringify(this.loginForm.value.password));
-
+          sessionStorage.setItem("Token", res.Token);
           this.toastr.success(res.message);
           this.router.navigate(['admin']);
         } else {

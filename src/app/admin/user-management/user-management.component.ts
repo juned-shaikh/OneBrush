@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { ThreeDServiceService } from 'src/app/service/three-dservice.service';
 import { Router } from '@angular/router';
+import { EncryptDecryptService } from 'src/app/service/encrypt-decrypt.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-management',
@@ -20,18 +22,29 @@ import { Router } from '@angular/router';
 
 export class UserManagementComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator !: MatPaginator;
-  displayedColumns: string[] = ['sNo', 'firstname', 'lastname', 'email', 'gender', 'age', 'language', 'creationDate', 'updationDate', 'status', 'action'];
-  userData: any = [];
+  displayedColumns: string[] = ['sNo', 'firstname', 'lastname', 'email', 'gender', 'age', 'language', 'creationDate', 'updationDate','Block/Unblock User','status', 'action'];
+  userData:any= [];
+  
   dataSource = new MatTableDataSource(this.userData);
 
   noOfRecors = 0;
   selection: any = 0;
-  constructor(private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService) {
+  age: any;
+  constructor(private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService,
+     public authService: AuthService,public encrptDecryptService:EncryptDecryptService
+
+     
+     ) {
   }
 
   ngOnInit(): void {
     // debugger
-    this.selection = { "page": 0, "size": 10, search: '' };
+
+    // this.calculateAge("2020-03-09")  
+    //convert date again to type Date
+    console.log("dataSource",this.dataSource);
+    
+    this.selection = { "pageIndex": 0, "pageSize": 10, search: '' };
     let selection: any = sessionStorage.getItem("selection");
     selection = JSON.parse(selection);
     if (selection) {
@@ -44,14 +57,455 @@ export class UserManagementComponent implements OnInit {
     }
     this.getAllUsers();
   }
+
+  calculateAge(date:any){
+    const bdate = new Date(date);
+    const timeDiff = Math.abs(Date.now() - bdate.getTime() );
+    this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+    return this.age;
+    console.log("age",this.age);
+  }
+
+  //   calculateAge(birthdate: any) {
+  //   console.log("age real",moment().diff(birthdate, 'years'));
+  //   return moment().diff(birthdate, 'years');
+  // }
+  
+
   getAllUsers() {
-    this.userData = [];
+    // this.userData=[];
     this.threeDService.show();
     this.authService.getAllUsers(this.selection).subscribe(res => {
       this.threeDService.hide();
-      if (res.response == 200) {
-        this.userData = res.data
-        this.noOfRecors = res.totalUser
+      console.log("get all users res", res)
+      if (res.responseCode == 200) {
+         const result = JSON.parse(this.encrptDecryptService.decrptData(this.encrptDecryptService.secretKey[res.authId],res.data))
+         console.log("result",result)
+         this.userData=[result]        
+//         this.userData=[{
+//           "userAccId": 17,
+//           "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//           "userType": "D",
+//           "brushName": "",
+//           "lastSync": "2022-03-09 10:26:30",
+//           "emailAddress": "naam@mailinator.com",
+//           "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//           "salutation": "",
+//           "name": "NAAM",
+//           "surname": "NAAM",
+//           "preferredLanguage": "EN",
+//           "gender": "M",
+//           "allowFirmWareUpdate": "",
+//           "dateOfBirth": "2022-03-09",
+//           "streetAndHousenumber": "naam",
+//           "zipcode": "naam",
+//           "city": "naam",
+//           "country": "naam",
+//           "telefon": "naam",
+//           "allowPushCom": "",
+//           "loadedRecord": "",
+//           "firstLaunch": "",
+//           "firstDentinosticLaunch": "",
+//           "patientList": [],
+//           "logindeviceIdList": [],
+//           "isVerified": false,
+//           "isBlocked": false,
+//           "creationDate": "2022-03-09 10:26:30",
+//           "isDeleted": false
+//       },{
+//         "userAccId": 17,
+//         "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//         "userType": "D",
+//         "brushName": "",
+//         "lastSync": "2022-03-09 10:26:30",
+//         "emailAddress": "naam@mailinator.com",
+//         "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//         "salutation": "",
+//         "name": "NAAM",
+//         "surname": "NAAM",
+//         "preferredLanguage": "EN",
+//         "gender": "M",
+//         "allowFirmWareUpdate": "",
+//         "dateOfBirth": "2022-03-09",
+//         "streetAndHousenumber": "naam",
+//         "zipcode": "naam",
+//         "city": "naam",
+//         "country": "naam",
+//         "telefon": "naam",
+//         "allowPushCom": "",
+//         "loadedRecord": "",
+//         "firstLaunch": "",
+//         "firstDentinosticLaunch": "",
+//         "patientList": [],
+//         "logindeviceIdList": [],
+//         "isVerified": false,
+//         "isBlocked": false,
+//         "creationDate": "2022-03-09 10:26:30",
+//         "isDeleted": false
+//     },{
+//       "userAccId": 17,
+//       "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//       "userType": "D",
+//       "brushName": "",
+//       "lastSync": "2022-03-09 10:26:30",
+//       "emailAddress": "naam@mailinator.com",
+//       "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//       "salutation": "",
+//       "name": "NAAM",
+//       "surname": "NAAM",
+//       "preferredLanguage": "EN",
+//       "gender": "M",
+//       "allowFirmWareUpdate": "",
+//       "dateOfBirth": "2022-03-09",
+//       "streetAndHousenumber": "naam",
+//       "zipcode": "naam",
+//       "city": "naam",
+//       "country": "naam",
+//       "telefon": "naam",
+//       "allowPushCom": "",
+//       "loadedRecord": "",
+//       "firstLaunch": "",
+//       "firstDentinosticLaunch": "",
+//       "patientList": [],
+//       "logindeviceIdList": [],
+//       "isVerified": false,
+//       "isBlocked": false,
+//       "creationDate": "2022-03-09 10:26:30",
+//       "isDeleted": false
+//   },{
+//     "userAccId": 17,
+//     "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//     "userType": "D",
+//     "brushName": "",
+//     "lastSync": "2022-03-09 10:26:30",
+//     "emailAddress": "naam@mailinator.com",
+//     "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//     "salutation": "",
+//     "name": "NAAM",
+//     "surname": "NAAM",
+//     "preferredLanguage": "EN",
+//     "gender": "M",
+//     "allowFirmWareUpdate": "",
+//     "dateOfBirth": "2022-03-09",
+//     "streetAndHousenumber": "naam",
+//     "zipcode": "naam",
+//     "city": "naam",
+//     "country": "naam",
+//     "telefon": "naam",
+//     "allowPushCom": "",
+//     "loadedRecord": "",
+//     "firstLaunch": "",
+//     "firstDentinosticLaunch": "",
+//     "patientList": [],
+//     "logindeviceIdList": [],
+//     "isVerified": false,
+//     "isBlocked": false,
+//     "creationDate": "2022-03-09 10:26:30",
+//     "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// },{
+//   "userAccId": 17,
+//   "uuId": "7affc333-1a0e-4e6c-add5-daa22b29266b",
+//   "userType": "D",
+//   "brushName": "",
+//   "lastSync": "2022-03-09 10:26:30",
+//   "emailAddress": "naam@mailinator.com",
+//   "password": "/I/0dbxo+Za9GGxr5xctGg==",
+//   "salutation": "",
+//   "name": "NAAM",
+//   "surname": "NAAM",
+//   "preferredLanguage": "EN",
+//   "gender": "M",
+//   "allowFirmWareUpdate": "",
+//   "dateOfBirth": "2022-03-09",
+//   "streetAndHousenumber": "naam",
+//   "zipcode": "naam",
+//   "city": "naam",
+//   "country": "naam",
+//   "telefon": "naam",
+//   "allowPushCom": "",
+//   "loadedRecord": "",
+//   "firstLaunch": "",
+//   "firstDentinosticLaunch": "",
+//   "patientList": [],
+//   "logindeviceIdList": [],
+//   "isVerified": false,
+//   "isBlocked": false,
+//   "creationDate": "2022-03-09 10:26:30",
+//   "isDeleted": false
+// }]
+         console.log("result type",typeof(this.userData))
+         console.log("result",this.userData )
+         this.noOfRecors = res.totalUser
       } else {
         this.toastr.error(res.message);
       }
@@ -61,9 +515,13 @@ export class UserManagementComponent implements OnInit {
       console.log(error);
     })
   }
+
   getPaginatorData($event: any) {
     this.selection.size = $event.pageSize;
     this.selection.page = $event.pageIndex;
+    console.log("selection size",this.selection.size);
+    console.log("selection page",this.selection.page);
+    
     sessionStorage.setItem("selection", JSON.stringify(this.selection));
     this.getAllUsers();
   }
@@ -90,4 +548,27 @@ export class UserManagementComponent implements OnInit {
     sessionStorage.setItem("selection", JSON.stringify(this.selection));
     this.router.navigate(['admin/user-profile']);
   }
+
+  blockUnblockUser(id:any, event:any){
+    
+    let data={  "authId":0 ,
+                "data":  this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],id)
+              }
+
+    this.authService.blockUnblockUser(data).subscribe(res => {
+      console.log("block res",res);
+      
+      if (res.response == 200) {
+
+        this.toastr.success(res.message);
+      } else {
+        this.toastr.error(res.message);
+      }
+    }, error => {
+      this.threeDService.hide();
+      this.toastr.error('Technical Issue.')
+      console.log(error);
+    })
+  }
+
 }
