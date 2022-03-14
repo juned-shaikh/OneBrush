@@ -5,7 +5,7 @@
                 <div class="mat-heading">
                     <div id="top-bar" class="mb-3">
                         <h2>Cms <span class="sub-menu1">
-                                > Screen Content</span></h2>
+                                > Screen</span></h2>
                     </div>
                 </div>
                 <div class="mat-card">
@@ -13,10 +13,10 @@
                         <div class="container">
                             <div class="row mb-5 mt-4">
                                 <div class="col-md-6 text-left">
-                                    <h2>Screens Content Demo</h2>
+                                    <h2>Screens</h2>
                                 </div>
                                 <div class="col-md-6 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary text-light add_databtn" data-toggle="modal" data-target="#myModal1" (click)="openPopup()">Add Content<i class="bx bx-plus-circle"></i></button>
+                                    <button type="button" class="btn btn-primary text-light add_databtn" data-toggle="modal" data-target="#myModal1" (click)="openPopup()">Add Screen<i class="bx bx-plus-circle"></i></button>
                                 </div>
                             </div>
                             <div>
@@ -27,48 +27,18 @@
                                             {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }}
                                         </td>
                                     </ng-container>
-                                    <ng-container matColumnDef="screen">
-                                        <th mat-header-cell *matHeaderCellDef>Screen</th>
+                                    <ng-container matColumnDef="screenname">
+                                        <th mat-header-cell *matHeaderCellDef>Screen-name</th>
                                         <td mat-cell *matCellDef="let element">
                                             <div fxLayoutAlign="start center">
                                                 <!-- <div class="make-ellipse">{{element.firstName}} </div> -->
                                             </div>
                                         </td>
                                     </ng-container>
-                                    <ng-container matColumnDef="content">
-                                        <th mat-header-cell *matHeaderCellDef>Content</th>
-                                        <td mat-cell *matCellDef="let element">
-                                            <div fxLayoutAlign="start center">
-                                                <!-- <div class="make-ellipse">{{element.lastName}} </div> -->
-                                            </div>
-                                        </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="action">
-                                        <th mat-header-cell *matHeaderCellDef>Action</th>
-                                        <td mat-cell *matCellDef="let element">
-                                            <div fxLayoutAlign="start center">
-                                                    <div class="make-ellipse">
-                                                        <span class="view-btn"  matTooltip="View" mat-button title="View Profile" matTooltip="View">
-                                                        <mat-icon>remove_red_eye</mat-icon>
-                                                    </span>
-                                                    </div>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="delete">
-                                        <th mat-header-cell *matHeaderCellDef>Delete</th>
-                                        <td mat-cell *matCellDef="let element">
-                                            <div fxLayoutAlign="start center">
-                                                    <div class="make-ellipse">
-                                                        <span class="view-btn"  matTooltip="View" mat-button title="delete" matTooltip="View">
-                                                        <mat-icon>delete</mat-icon>
-                                                    </span>
-                                                    </div>
-                                            </div>
-                                        </td>
-                                    </ng-container>
+                                    
+                            
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>/
                                 </table>
                                </div>
 
@@ -78,7 +48,7 @@
     
                                         <!-- Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Add Screen Content</h4>
+                                            <h4 class="modal-title">Add Screen Name</h4>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 (click)="closePopup()">&times;</button>
                                         </div>
@@ -88,15 +58,9 @@
                                             <div class="welcome-form">
                                                 <form>
                                                     <div class="form-outline mb-4 text-left">
-                                                        <label class="form-label text-left" for="">Add Screen Name:</label>
+                                                        <label class="form-label text-left" for="">Screen Name:</label>
                                                         <input type="text" id="form2Example11"
                                                             class="form-control" placeholder="Add title" />
-                                                    </div>
-    
-                                                    <div class="form-outline mb-4 text-left">
-                                                        <label class="form-label" for="">Add Screen Content:</label>
-                                                        <textarea class="form-control" 
-                                                            id="exampleFormControlTextarea5" rows="3"></textarea>
                                                     </div>
                                                     <button
                                                         class="btn btn-primary text-right text-light bg-secondary border-secondary mb-3"

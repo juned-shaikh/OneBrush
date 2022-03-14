@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { AuthGuard } from "../service/auth.guard";
+import { AddScreenComponent } from "./add-screen/add-screen.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ScreenContentComponent } from "./screen-content/screen-content.component";
 import { UserDetailsComponent } from "./user-details/user-details.component";
@@ -14,5 +15,7 @@ export const ADMIN_ROUTING: Routes=[
     {path:'user-management',component:UserManagementComponent},
     {path:'user-profile',component:UserDetailsComponent},
     {path:'welcome-screen',component:WelcomeScreenComponent},
-    {path:'screen-content',component:ScreenContentComponent}
+    {path:'screen-content',component:ScreenContentComponent},
+    {path:'add-screen',component:AddScreenComponent}
+
 ]

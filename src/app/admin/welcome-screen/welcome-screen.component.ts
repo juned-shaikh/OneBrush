@@ -123,7 +123,7 @@ export class WelcomeScreenComponent implements OnInit {
     this.authService.updateWelcomeScreen(this.welcomeForm.value,this.id).subscribe(res => {
       if (res.responseCode == 200) {
         this.threeDService.hide();
-        this.toastr.error(res.message);
+        this.toastr.success(res.message);
       }
       else {
         this.threeDService.hide();

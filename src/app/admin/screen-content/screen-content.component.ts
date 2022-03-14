@@ -1,6 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { fadeInAnimation } from './../../service/route.animation';
+import { data } from 'jquery';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/service/auth.service';
+import { ThreeDServiceService } from 'src/app/service/three-dservice.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-screen-content',
   templateUrl: './screen-content.component.html',

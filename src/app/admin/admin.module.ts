@@ -23,6 +23,7 @@ import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.componen
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ScreenContentComponent } from './screen-content/screen-content.component';
+import { AddScreenComponent } from './add-screen/add-screen.component';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { ScreenContentComponent } from './screen-content/screen-content.componen
     UserDetailsComponent,
     WelcomeScreenComponent,
     ScreenContentComponent,
+    AddScreenComponent,
 
   ],
  

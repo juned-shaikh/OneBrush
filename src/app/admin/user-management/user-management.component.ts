@@ -50,8 +50,8 @@ export class UserManagementComponent implements OnInit {
     this.authService.getAllUsers(this.selection).subscribe(res => {
       this.threeDService.hide();
       if (res.response == 200) {
-        this.userData = res.data
-        this.noOfRecors = res.totalUser
+        this.userData = res.data;
+        this.noOfRecors = res.totalUser;
       } else {
         this.toastr.error(res.message);
       }
