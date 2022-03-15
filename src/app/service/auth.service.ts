@@ -49,8 +49,15 @@ export class AuthService {
       .pipe(map((response: any) => response));
   }
 
-  getAllUsers(data: any) {
-    return this.http.post(Links.USER_LIST, data, httpOptions)
+  getAllUsers(data:any) {
+    
+    console.log("Request",Links.USER_LIST,data);
+    return this.http.get(Links.USER_LIST+'?pageIndex='+data.pageIndex+'&pageSize='+data.pageSize,httpOptions)
+      .pipe(map((response: any) => response));
+  }
+
+  blockUnblockUser( data: any) {
+    return this.http.put(Links.BLOCK_UNBLOCK_USER ,data, httpOptions)
       .pipe(map((response: any) => response));
   }
 
@@ -112,9 +119,9 @@ export class AuthService {
       .pipe(map((response: any) => response));
   }
 
-  updateWelcomeScreen(form:any,id:any) {
+  updateWelcomeScreen(form:any,caroselId:any) {
   const formData = new FormData();
-  formData.append('id', id);
+  formData.append('caroselId', caroselId);
   formData.append('title', form.title)
   formData.append('descriptions', form.descriptions);
   formData.append('docfile', form.docfile)

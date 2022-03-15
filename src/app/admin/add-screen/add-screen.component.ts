@@ -19,19 +19,21 @@ export class AddScreenComponent implements OnInit {
   displayStyle: any = "none";
   @ViewChild(MatPaginator, { static: true }) paginator !: MatPaginator;
   displayedColumns: string[] = ['sNo', 'screenname'];
-  screenForm: FormGroup = new FormGroup({});
+  addscreenForm: FormGroup = new FormGroup({});
 
     constructor(public dialog: MatDialog, private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService, private fb: FormBuilder,) {
 
-      this.screenForm = this.fb.group({
-        screenName: ['', Validators.required],
-       
+      this.addscreenForm = this.fb.group({
+        name: ['', Validators.required],
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        confirmpassword: ['', Validators.required],
       })
     }
 
   
     ngOnInit(): void {
-      // getScreenData();
+      // getAddScreenData();
     }
 
     openPopup() {
@@ -42,7 +44,7 @@ export class AddScreenComponent implements OnInit {
       this.displayStyle = "none";
     }
 
-    // getScreenData() {
+    // getAddScreenData() {
     //   this.threeDService.show();
     //   this.authService.getWelcomeScreen().subscribe(res => {
     //     if (res.responseCode == 200) {

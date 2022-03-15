@@ -16,6 +16,8 @@ export class WelcomeScreenComponent implements OnInit {
 
   @ViewChild('inputFile', { static: true }) docFile: any;
   welcomeForm: FormGroup = new FormGroup({});
+  updateWelcomeForm: FormGroup = new FormGroup({});
+
   id: number = 0;
   displayStyle: any = "none";
   unSelectedFile: any;
@@ -41,6 +43,12 @@ export class WelcomeScreenComponent implements OnInit {
       descriptions: ['', Validators.required],
       docfile: ['', Validators.required],
     })
+    // this.updateWelcomeForm = this.fb.group({
+    //   title: ['', Validators.required],
+    //   descriptions: ['', Validators.required],
+    //   docfile: ['', Validators.required],
+    //   caroselId: ['']
+    // })
   }
 
   customOptions: OwlOptions = {
@@ -94,7 +102,6 @@ export class WelcomeScreenComponent implements OnInit {
         this.toastr.error(res.message);
       }
       console.log(res, ':sdsdsdsd');
-
     })
   }
 
@@ -119,11 +126,13 @@ export class WelcomeScreenComponent implements OnInit {
   }
 
   updateWelcomeData() {
-
-    this.authService.updateWelcomeScreen(this.welcomeForm.value,this.id).subscribe(res => {
+    console.log(this.caroselID,"==============this.id================");
+    this.authService.updateWelcomeScreen(this.welcomeForm.value,this.caroselID).subscribe(res => {
+      
       if (res.responseCode == 200) {
         this.threeDService.hide();
         this.toastr.success(res.message);
+        this.updateclosePopup();
       }
       else {
         this.threeDService.hide();
@@ -172,8 +181,19 @@ export class WelcomeScreenComponent implements OnInit {
     this.displayStyle = "none";
   }
 
-
-  updateopenPopup() {
+caroselID:any;
+title:any;
+descriptions:any;
+docfile:any;
+  updateopenPopup(id:any,title:any,descriptions:any,docfile:any) {
+    this.welcomeForm.patchValue({
+      title :title,
+      descriptions:descriptions,
+      docfile:docfile
+    })
+    console.log(this.welcomeForm.value,'sdfsdfsd');
+    
+    this.caroselID = id;
     this.displayStyles = "block";
   }
 

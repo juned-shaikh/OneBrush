@@ -56,13 +56,13 @@
                                         <!-- Modal body -->
                                         <div class="modal-body">
                                             <div class="welcome-form">
-                                                <form>
+                                                <form action="" [formGroup]="addscreenForm" autocomplete="off">
                                                     <div class="form-outline mb-4 text-left">
                                                         <label class="form-label text-left" for="">Screen Name:</label>
-                                                        <input type="text" id="form2Example11"
-                                                            class="form-control" placeholder="Add title" />
+                                                        <input type="text" id="form2Example11" formControlName="screen-name"
+                                                            class="form-control" placeholder="screen-name" />
                                                     </div>
-                                                    <button
+                                                    <button 
                                                         class="btn btn-primary text-right text-light bg-secondary border-secondary mb-3"
                                                         >Submit</button>
                                                 </form>
