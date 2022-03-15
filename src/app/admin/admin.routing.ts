@@ -12,7 +12,8 @@ export const ADMIN_ROUTING: Routes=[
     // {path:'',loadChildren: ()=> import('./../shared/routes/full-layout.routes').then(m=>m.Full_ROUTES),canActivate:[AuthGuard]},
     {path:'dashboard',component:DashboardComponent},
     {path:'user-management',component:UserManagementComponent},
-    {path:'user-profile',component:UserDetailsComponent},
+    {path:'user-detail/:id',component:UserDetailsComponent},
+    // {path:'user-detail/:id',component:UserDetailsComponent},
     {path:'welcome-screen',component:WelcomeScreenComponent},
     {path:'screen-content',component:ScreenContentComponent}
 ]

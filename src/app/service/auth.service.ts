@@ -96,11 +96,17 @@ export class AuthService {
     }
   }
 
-  getUser(uuid:any) {
-    return this.http.post(Links.GET_USER_DETAIL+'?uuid='+uuid,{},httpOptions)
+  getUserDetail(uuid:any) {
+    return this.http.get(Links.GET_USER_DETAIL+"/"+uuid,httpOptions)
        .pipe(map((response: any) => response));
   }
 
+  deleteUserByAdmin(data:any) {
+    return this.http.post(Links.DELETE_USER,data,httpOptions)
+       .pipe(map((response: any) => response));
+  }
+
+  // /api/admin/delete_user_by_uuId
 
 
     // const httpUploadOptions = {

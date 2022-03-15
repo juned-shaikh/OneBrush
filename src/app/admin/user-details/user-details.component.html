@@ -9,7 +9,7 @@
          Back
       </a>
    </div>
-   <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+   <div *ngIf="userDetail" fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
       <div class="user-content">
          <mat-card>
             <h4 class="first-cap">Personal Information</h4>
@@ -18,35 +18,35 @@
                      <div class="col-2"><b>Name </b></div>
                      <div class="col-1"><b>: </b></div>
                      <div class="col-8">
-                        <p>{{userDetail.firstName}} {{userDetail.lastName}}</p>
+                        <p>{{userDetail.name}} {{userDetail.surname}}</p>
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-2"><b>Email </b></div>
+                     <div class="col-2"><b>Email</b></div>
                      <div class="col-1"><b>: </b></div>
                      <div class="col-8">
-                        <p style="text-transform: unset !important;">{{userDetail.email}} </p>
+                        <p style="text-transform: unset !important;">{{userDetail.emailAddress}} </p>
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-2"><b>Gander </b></div>
+                     <div class="col-2"><b>Gender</b></div>
                      <div class="col-1"><b>: </b></div>
                      <div class="col-8">
                         <p>{{userDetail.gender}} </p>
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-2"><b>DOB </b></div>
+                     <div class="col-2"><b>DOB</b></div>
                      <div class="col-1"><b>: </b></div>
                      <div class="col-8">
-                        <p>{{userDetail.dob}} </p>
+                        <p>{{userDetail.emailAddress}}</p>
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-2"><b>Age </b></div>
+                     <div class="col-2"><b>Age</b></div>
                      <div class="col-1"><b>: </b></div>
                      <div class="col-8">
-                        <p>{{userDetail.age}} </p>
+                        <p>{{this.calculateAge(userDetail.age)}}</p>
                      </div>
                   </div>
                   <div class="row">
@@ -60,7 +60,7 @@
                      <div class="col-2"><b>Firmware Upgrades </b></div>
                      <div class="col-1"><b>: </b></div>
                      <div class="col-8">
-                        <p>{{userDetail.firmwareUpgrades}} </p>
+                        <p>{{userDetail.allowFirmWareUpdate}} </p>
                      </div>
                   </div>
                </div>
