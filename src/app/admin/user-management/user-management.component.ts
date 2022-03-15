@@ -82,7 +82,6 @@ export class UserManagementComponent implements OnInit {
          const result = JSON.parse(this.encrptDecryptService.decrptData(this.encrptDecryptService.secretKey[res.authId],res.data))
          console.log("result",result)
          this.userData=[result]        
-
          console.log("result type",typeof(this.userData))
          console.log("result",this.userData )
          this.noOfRecors = res.totalUser

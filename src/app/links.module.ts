@@ -8,7 +8,7 @@ export class Links {
 
     public static LOGIN = Links.BASE + '/api/admin/adminLogin';
     public static DASHBOARD_COUNT = Links.BASE + '/admin/dashborad-count';
-    public static CHANGE_PASSWORD = Links.BASE + '/admin/change-password';
+    public static CHANGE_PASSWORD = Links.BASE + '/api/admin/change_admin_password';
     public static FORGOT_PASSWORD = Links.BASE + '/admin/forgot-password';
     public static RESET_PASSWORD = Links.BASE + '/admin/reset-password';
     public static DELETE_USER = Links.BASE + '/api/admin/delete_user_by_uuId';

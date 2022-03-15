@@ -16,4 +16,6 @@ export const ROUTES: RouteInfo[] = [
         { path: 'add-questions', title: 'Add Questions ', icon: 'bx bx-cctv', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
 
     ]},
+    {path: 'message', title: 'Message', icon: 'bx bx-comment-dots', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
+
 ];   

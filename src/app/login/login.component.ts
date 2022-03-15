@@ -43,7 +43,11 @@ export class LoginComponent implements OnInit {
 
         this.ThreeDService.hide();
         if (res.responseCode == 200) {
-          sessionStorage.setItem("adminDetail", JSON.stringify(res.data));
+         const result = this.encryptDecryptService.decrptData(this.encryptDecryptService.secretKey[res.authId],res.data)
+         console.log(result,'----decrypt data');
+          
+         sessionStorage.setItem("adminDetail",result);
+          sessionStorage.setItem("password", this.loginForm.value.password);
           sessionStorage.setItem("Token", res.Token);
           this.toastr.success(res.message);
           this.router.navigate(['admin']);

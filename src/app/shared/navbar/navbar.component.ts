@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(public sidebarservice: SidebarService,private router: Router,public dialog: MatDialog) { 
     let sessionData:any =  sessionStorage.getItem("adminDetail"); 
-    this.adminDetail = JSON.parse(sessionData);
+    this.adminDetail = sessionData;
   }     
     toggleSidebar() {
         this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
     }
     logout(){
         sessionStorage.removeItem('adminDetail');
-        sessionStorage.removeItem('adminId');
+        sessionStorage.removeItem('Token');
         this.router.navigate(['sign-in']);
     }
     changePassword(){
