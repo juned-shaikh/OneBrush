@@ -17,12 +17,14 @@ import { Router } from '@angular/router';
 export class MessageComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator !: MatPaginator;
-  displayedColumns: string[] = ['sNo', 'key', 'message', 'status','action'];
+  displayedColumns: string[] = ['sNo', 'key', 'message', 'action'];
   userData: any = [];
   dataSource = new MatTableDataSource(this.userData);
 
   noOfRecors = 0;
   selection: any = 0;
+  displayStyle: any = "none";
+
   constructor(private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService) {
   }
 
@@ -44,9 +46,9 @@ export class MessageComponent implements OnInit {
   getAllUsers() {
     this.userData = [];
     this.threeDService.show();
-    this.authService.getAllUsers(this.selection).subscribe(res => {
+    this.authService.getMessage().subscribe(res => {
       this.threeDService.hide();
-      if (res.response == 200) {
+      if (res.responseCode == 200) {
         this.userData = res.data
         this.noOfRecors = res.totalUser
       } else {
@@ -87,4 +89,12 @@ export class MessageComponent implements OnInit {
     sessionStorage.setItem("selection", JSON.stringify(this.selection));
     this.router.navigate(['admin/user-profile']);
   }
+  openPopup() {
+    this.displayStyle= "block";
+  }
+
+  closePopup() {
+    this.displayStyle = "none";
+  }
+
 }

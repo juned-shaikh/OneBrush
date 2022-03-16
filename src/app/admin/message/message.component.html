@@ -35,7 +35,7 @@
 					<th mat-header-cell *matHeaderCellDef>key</th>
 					<td mat-cell *matCellDef="let element">
 						<div fxLayoutAlign="start center">
-							<div class="make-ellipse">{{element.key}} </div>
+							<div class="make-ellipse">{{element.messageKey}} </div>
 						</div>
 					</td>
 				</ng-container>
@@ -43,12 +43,12 @@
 					<th mat-header-cell *matHeaderCellDef>Message</th>
 					<td mat-cell *matCellDef="let element">
 						<div fxLayoutAlign="start center">
-							<div class="make-ellipse">{{element.message}} </div>
+							<div class="make-ellipse">{{element.messageValue}} </div>
 						</div>
 					</td>
 				</ng-container>
 		
-				<ng-container matColumnDef="status">
+				<!-- <ng-container matColumnDef="status">
 					<th mat-header-cell *matHeaderCellDef>Status</th>
 					<td mat-cell *matCellDef="let element">
 						<div fxLayoutAlign="start center">
@@ -59,14 +59,14 @@
 							</div>
 						</div>
 					</td>
-				</ng-container>
+				</ng-container> -->
 				<ng-container matColumnDef="action">
 					<th mat-header-cell *matHeaderCellDef>Action</th>
 					<td mat-cell *matCellDef="let element">
 						<div fxLayoutAlign="start center">
 								<div class="make-ellipse">
 									<span class="view-btn"  matTooltip="View" mat-button (click)="viewProfile(element.uuid)" title="View Profile" matTooltip="View">
-									<mat-icon>remove_red_eye</mat-icon>
+									<mat-icon (click)="openPopup()">remove_red_eye</mat-icon>
 								</span>
 								</div>
 					    </div>
@@ -84,6 +84,35 @@
 					[pageSizeOptions]="[10, 25, 50]" (page)="getPaginatorData($event)"></mat-paginator>
 			</div>
 		</div>
+		<div class="modal" id="myModal1" role="dialog" [ngStyle]="{'display':displayStyle}">
+			<div class="modal-dialog">
+				<div class="modal-content">
 
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Add Message</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							(click)="closePopup()">&times;</button>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<div class="welcome-form">
+							<form action="" autocomplete="off">
+								<div class="form-outline mb-4 text-left">
+									<label class="form-label text-left" for="">Message:</label>
+									<input type="text" id="form2Example11" formControlName="message"
+										class="form-control" placeholder="message" />
+								</div>
+								<button 
+									class="btn btn-primary text-right text-light bg-secondary border-secondary mb-3"
+									>Submit</button>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
 	</mat-card>
 </div>

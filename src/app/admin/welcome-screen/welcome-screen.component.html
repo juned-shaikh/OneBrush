@@ -71,21 +71,12 @@
                     </div>
                     <div class="screens">
                         <div class="container my-4">
-
-                            <!--Carousel Wrapper-->
-                            <!-- <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel"> -->
-                            <!--Slides-->
-                            <!-- <div class="carousel-inner" role="listbox"> -->
-
-                            <!--First slide-->
-
-
                             <div class="row">
                                 <div class="col">
                                     <owl-carousel-o [options]="customOptions">
                                         <ng-container *ngFor="let slide of WelcomeData" class="card">
                                             <ng-template carouselSlide><i class="bx bx-trash" (click)="deleteWelcomeData(slide.caroselId)"></i>
-                                                <i class="bx bx-edit" (click)="updateopenPopup()"></i>
+                                                <i class="bx bx-edit" (click)="updateopenPopup(slide.caroselId,slide.title,slide.descriptions,slide.imgUrl)"></i>
                                                 <img [src]="slide.imgUrl" [alt]="slide.alt">
                                                 <h4 class="card-title teext">{{slide.title}}</h4>
                                                 <p class="card-text">{{slide.descriptions}}</p>
@@ -109,15 +100,15 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div class="welcome-form">
-                    <form [formGroup]="welcomeForm">
+                <div class="welcome-form" >
+                    <form [formGroup]="welcomeForm" >
                         <div class="form-outline input-group mb-4">
                             <label class="form-label text-left" for="">Update Image</label>
                             <div class="custom-file text-left">
-                                <input type="file" #inputFile id="image"
+                                <input type="file" #inputFile id="image" accept="image/*" formControlName=""
                                     (change)="onSelectDoc($event)" id="inputGroupFile01"
                                     aria-describedby="inputGroupFileAddon01">
-                              
+                              <!-- <div><img [src]="imgUrl" width="100px" height="100px"></div> -->
                                 <label class="custom-file-label" for="inputGroupFile01"></label>
                             </div>
                         </div>
@@ -132,7 +123,7 @@
                             <textarea class="form-control" formControlName="descriptions"
                                 id="exampleFormControlTextarea5" rows="3"></textarea>
                         </div>
-                        <button
+                        <button 
                             class="btn btn-primary text-right text-light bg-secondary border-secondary mb-3"
                             (click)="updateWelcomeData()">Submit</button>
                     </form>

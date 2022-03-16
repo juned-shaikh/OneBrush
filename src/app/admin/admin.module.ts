@@ -24,9 +24,7 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MessageComponent } from './message/message.component';
 import { ScreenContentComponent } from './screen-content/screen-content.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { MatOptionModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
+import { AddScreenComponent } from './add-screen/add-screen.component';
 
 @NgModule({
   imports: [
@@ -45,7 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     NgbCarouselModule,
     CarouselModule,
-    MatInputModule,MatOptionModule, MatSelectModule, MatIconModule,
+    MatInputModule, MatIconModule,
 
   ],
   declarations: [
@@ -57,6 +55,7 @@ import { MatSelectModule } from '@angular/material/select';
     WelcomeScreenComponent,
     MessageComponent,
     ScreenContentComponent,
+    AddScreenComponent,
 
   ],
  

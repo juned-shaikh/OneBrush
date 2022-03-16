@@ -16,6 +16,8 @@ export class WelcomeScreenComponent implements OnInit {
 
   @ViewChild('inputFile', { static: true }) docFile: any;
   welcomeForm: FormGroup = new FormGroup({});
+  updateWelcomeForm: FormGroup = new FormGroup({});
+
   id: number = 0;
   displayStyle: any = "none";
   unSelectedFile: any;
@@ -32,6 +34,7 @@ export class WelcomeScreenComponent implements OnInit {
     { id: 4, src: "assets/images/Mask-Group.png", alt: 'Side 4' },
     { id: 4, src: "assets/images/Mockup@1x.png", alt: 'Side 5' },
   ];
+  imgUrl: any;
 
 
   constructor(public dialog: MatDialog, private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService, private fb: FormBuilder,) {
@@ -40,7 +43,14 @@ export class WelcomeScreenComponent implements OnInit {
       title: ['', Validators.required],
       descriptions: ['', Validators.required],
       docfile: ['', Validators.required],
+      
     })
+    // this.updateWelcomeForm = this.fb.group({
+    //   title: ['', Validators.required],
+    //   descriptions: ['', Validators.required],
+    //   docfile: ['', Validators.required],
+    //   caroselId: ['']
+    // })
   }
 
   customOptions: OwlOptions = {
@@ -86,15 +96,16 @@ export class WelcomeScreenComponent implements OnInit {
         this.threeDService.hide();
         this.WelcomeData = res.data;
         this.id = res.data.caroselId;
-        console.log(res.data.caroselId, "res.data")
-        this.threeDService.hide();
+        this.docfile = res.data.imgUrl;
 
+        console.log(this.WelcomeData, "=======================+++++++++====================")
+        this.threeDService.hide();
+        console.log(res.data.caroselId, "res.data")
       } else {
         this.threeDService.hide();
         this.toastr.error(res.message);
       }
       console.log(res, ':sdsdsdsd');
-
     })
   }
 
@@ -119,11 +130,13 @@ export class WelcomeScreenComponent implements OnInit {
   }
 
   updateWelcomeData() {
-
-    this.authService.updateWelcomeScreen(this.welcomeForm.value,this.id).subscribe(res => {
+    console.log(this.caroselID,"==============this.id================");
+    this.authService.updateWelcomeScreen(this.welcomeForm.value,this.caroselID).subscribe(res => {
+      
       if (res.responseCode == 200) {
         this.threeDService.hide();
-        this.toastr.error(res.message);
+        this.toastr.success(res.message);
+        this.updateclosePopup();
       }
       else {
         this.threeDService.hide();
@@ -172,8 +185,22 @@ export class WelcomeScreenComponent implements OnInit {
     this.displayStyle = "none";
   }
 
-
-  updateopenPopup() {
+caroselID:any;
+title:any;
+descriptions:any;
+docfile:any;
+  updateopenPopup(id:any,title:any,descriptions:any,imgUrl:any) {
+    this.welcomeForm.patchValue({
+      title :title,
+      descriptions:descriptions,
+      imgUrl:imgUrl
+      // docfile:imgUrl 
+      
+    })
+    this.imgUrl = imgUrl
+  console.log(id,imgUrl,"checking for project");
+  
+    this.caroselID = id;
     this.displayStyles = "block";
   }
 

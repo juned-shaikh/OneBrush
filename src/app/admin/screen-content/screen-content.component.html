@@ -16,15 +16,15 @@
                                     <h2>Screens Content Demo</h2>
                                 </div>
                                 <div class="col-md-6 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary text-light add_databtn" data-toggle="modal" data-target="#myModal1" (click)="openPopup()">Add Screen<i class="bx bx-plus-circle"></i></button>
+                                    <button type="button" class="btn btn-primary text-light add_databtn" data-toggle="modal" data-target="#myModal1" (click)="openPopup()">Add Content<i class="bx bx-plus-circle"></i></button>
                                 </div>
                             </div>
                             <div>
                                 <table mat-table class="full-wid">
                                     <ng-container matColumnDef="sNo">
-                                        <th mat-header-cell *matHeaderCellDef>#</th>
+                                        <th mat-header-cell *matHeaderCellDef>S no.</th>
                                         <td mat-cell *matCellDef="let element; let i = index">
-                                            {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }}
+                                            {{ (i+1)}}
                                         </td>
                                     </ng-container>
                                     <ng-container matColumnDef="screen">
@@ -88,13 +88,21 @@
                                             <div class="welcome-form">
                                                 <form>
                                                     <div class="form-outline mb-4 text-left">
-                                                        <label class="form-label text-left" for="">Add Screen Name:</label>
+                                                        <label class="form-label"> Screen </label>
+                                                        <select id="term" type="text" class="form-control" 
+                                                          placeholder="Name" (change)="screenNameChange($event)">
+                                                          <option value="" selected hidden disabled>Select</option>
+                                                          <option *ngFor="let s of screenData" [value]="s.id">{{s.name}}</option>
+                                                        </select>
+                                                      </div>
+                                                    <div class="form-outline mb-4 text-left">
+                                                        <label class="form-label text-left" for="">Title</label>
                                                         <input type="text" id="form2Example11"
                                                             class="form-control" placeholder="Add title" />
                                                     </div>
     
                                                     <div class="form-outline mb-4 text-left">
-                                                        <label class="form-label" for="">Add Screen Content:</label>
+                                                        <label class="form-label" for="">Discription</label>
                                                         <textarea class="form-control" 
                                                             id="exampleFormControlTextarea5" rows="3"></textarea>
                                                     </div>

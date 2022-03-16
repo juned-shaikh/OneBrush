@@ -1,0 +1,84 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="cms">
+            <div class="height-100">
+                <div class="mat-heading">
+                    <div id="top-bar" class="mb-3">
+                        <h2>Cms <span class="sub-menu1">
+                                > Screen</span></h2>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="welcomescreen-data text-right">
+                        <div class="container">
+                            <div class="row mb-5 mt-4">
+                                <div class="col-md-6 text-left">
+                                    <h2>Screens</h2>
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary text-light add_databtn" data-toggle="modal" data-target="#myModal1" (click)="openPopup()">Add Screen<i class="bx bx-plus-circle"></i></button>
+                                </div>
+                            </div>
+                            <div>
+                                <table mat-table class="full-wid" [dataSource]="screenData">
+                                    <ng-container matColumnDef="sNo">
+                                        <th mat-header-cell *matHeaderCellDef>S no.</th>
+                                        <td mat-cell *matCellDef="let element; let i = index">
+                                            {{ i+1}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="screenname">
+                                        <th mat-header-cell *matHeaderCellDef>Screen-name</th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <div fxLayoutAlign="start center">
+                                                <div class="make-ellipse">{{element.name}} </div>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    
+                            
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>/
+                                </table>
+                               </div>
+
+                               <div class="modal" id="myModal1" role="dialog" [ngStyle]="{'display':displayStyle}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+    
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Add Screen Name</h4>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                (click)="closePopup()">&times;</button>
+                                        </div>
+    
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <div class="welcome-form">
+                                                <form action="" [formGroup]="addscreenForm" autocomplete="off">
+                                                    <div class="form-outline mb-4 text-left">
+                                                        <label class="form-label text-left" for="">Screen Name:</label>
+                                                        <input type="text" id="form2Example11" formControlName="name"
+                                                            class="form-control" placeholder="name" />
+                                                    </div>
+                                                    <button 
+                                                        class="btn btn-primary text-right text-light bg-secondary border-secondary mb-3" (click)="addScreenData()"
+                                                        >Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
