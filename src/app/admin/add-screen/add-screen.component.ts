@@ -73,6 +73,7 @@ export class AddScreenComponent implements OnInit {
           this.threeDService.hide();
           this.toastr.success(res.message);
           this.closePopup();
+          this.getAddScreenData();
         }
         else {
           this.threeDService.hide();

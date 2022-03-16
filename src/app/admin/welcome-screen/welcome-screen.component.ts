@@ -193,13 +193,13 @@ docfile:any;
     this.welcomeForm.patchValue({
       title :title,
       descriptions:descriptions,
-      docfile:imgUrl
+      imgUrl:imgUrl
+      // docfile:imgUrl 
+      
     })
-    console.log(this.welcomeForm.value,'sdfsdfsd');
-    console.log(this.welcomeForm.value.title,'sdfsdfsd');
-    console.log(this.welcomeForm.value.docfile,'sdfsdfsd');
-    console.log(this.welcomeForm.value.caroselId,'sdfsdfsd');
-    console.log(this.welcomeForm.value.descriptions,'sdfsdfsd');
+    this.imgUrl = imgUrl
+  console.log(id,imgUrl,"checking for project");
+  
     this.caroselID = id;
     this.displayStyles = "block";
   }

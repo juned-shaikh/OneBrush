@@ -24,10 +24,11 @@ export class ScreenContentComponent implements OnInit {
   name: any;
   screenId: any;
   constructor(public dialog: MatDialog, private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService, private fb: FormBuilder,) {
-    this.getScreenContentData();
+  
    }
 
   ngOnInit(): void {
+  this.getScreenContentData();
   }
 
   getScreenContentData() {
@@ -47,6 +48,31 @@ export class ScreenContentComponent implements OnInit {
       }
     })
   }
+
+
+  addScreenData() {
+    console.log(this.addscreenForm.value, "durgesh")
+    this.authService.addScreeDetail(this.addscreenForm.value).subscribe(res => {
+      if (res.responseCode == 200) {
+        this.threeDService.hide();
+        this.toastr.success(res.message);
+        this.closePopup();
+        this.getScreenContentData();
+      }
+      else {
+        this.threeDService.hide();
+        this.toastr.error(res.message)
+      }
+    }, error => {
+      this.threeDService.hide();
+      this.toastr.error('Technical Issue.')
+      console.log(error);
+    })
+  }
+
+
+
+
   screenNameChange(e:any){
       this.name=e;
   }

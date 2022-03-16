@@ -23,6 +23,8 @@ export class MessageComponent implements OnInit {
 
   noOfRecors = 0;
   selection: any = 0;
+  displayStyle: any = "none";
+
   constructor(private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService) {
   }
 
@@ -87,4 +89,12 @@ export class MessageComponent implements OnInit {
     sessionStorage.setItem("selection", JSON.stringify(this.selection));
     this.router.navigate(['admin/user-profile']);
   }
+  openPopup() {
+    this.displayStyle= "block";
+  }
+
+  closePopup() {
+    this.displayStyle = "none";
+  }
+
 }

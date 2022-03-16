@@ -71,15 +71,6 @@
                     </div>
                     <div class="screens">
                         <div class="container my-4">
-
-                            <!--Carousel Wrapper-->
-                            <!-- <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel"> -->
-                            <!--Slides-->
-                            <!-- <div class="carousel-inner" role="listbox"> -->
-
-                            <!--First slide-->
-
-
                             <div class="row">
                                 <div class="col">
                                     <owl-carousel-o [options]="customOptions">
@@ -114,10 +105,10 @@
                         <div class="form-outline input-group mb-4">
                             <label class="form-label text-left" for="">Update Image</label>
                             <div class="custom-file text-left">
-                                <input type="file" #inputFile id="image" formControlName="docfile"
+                                <input type="file" #inputFile id="image" accept="image/*" formControlName=""
                                     (change)="onSelectDoc($event)" id="inputGroupFile01"
                                     aria-describedby="inputGroupFileAddon01">
-                              
+                              <!-- <div><img [src]="imgUrl" width="100px" height="100px"></div> -->
                                 <label class="custom-file-label" for="inputGroupFile01"></label>
                             </div>
                         </div>
