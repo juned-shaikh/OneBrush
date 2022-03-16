@@ -24,6 +24,9 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MessageComponent } from './message/message.component';
 import { ScreenContentComponent } from './screen-content/screen-content.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -41,7 +44,9 @@ import { ScreenContentComponent } from './screen-content/screen-content.componen
     MatCardModule,
     MatDialogModule,
     NgbCarouselModule,
-    CarouselModule
+    CarouselModule,
+    MatInputModule,MatOptionModule, MatSelectModule, MatIconModule,
+
   ],
   declarations: [
     ContentLayoutComponent,
