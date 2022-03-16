@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class MessageComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator !: MatPaginator;
-  displayedColumns: string[] = ['sNo', 'key', 'message', 'status','action'];
+  displayedColumns: string[] = ['sNo', 'key', 'message', 'action'];
   userData: any = [];
   dataSource = new MatTableDataSource(this.userData);
 
@@ -44,9 +44,9 @@ export class MessageComponent implements OnInit {
   getAllUsers() {
     this.userData = [];
     this.threeDService.show();
-    this.authService.getAllUsers(this.selection).subscribe(res => {
+    this.authService.getMessage().subscribe(res => {
       this.threeDService.hide();
-      if (res.response == 200) {
+      if (res.responseCode == 200) {
         this.userData = res.data
         this.noOfRecors = res.totalUser
       } else {

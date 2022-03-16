@@ -96,11 +96,17 @@ export class AuthService {
     }
   }
 
-  getUser(uuid:any) {
-    return this.http.post(Links.GET_USER_DETAIL+'?uuid='+uuid,{},httpOptions)
+  getUserDetail(uuid:any) {
+    return this.http.get(Links.GET_USER_DETAIL+"/"+uuid,httpOptions)
        .pipe(map((response: any) => response));
   }
 
+  deleteUserByAdmin(data:any) {
+    return this.http.post(Links.DELETE_USER,data,httpOptions)
+       .pipe(map((response: any) => response));
+  }
+
+  // /api/admin/delete_user_by_uuId
 
 
     // const httpUploadOptions = {
@@ -119,9 +125,9 @@ export class AuthService {
       .pipe(map((response: any) => response));
   }
 
-  updateWelcomeScreen(form:any,id:any) {
+  updateWelcomeScreen(form:any,caroselId:any) {
   const formData = new FormData();
-  formData.append('id', id);
+  formData.append('caroselId', caroselId);
   formData.append('title', form.title)
   formData.append('descriptions', form.descriptions);
   formData.append('docfile', form.docfile)
@@ -141,4 +147,20 @@ deleteWelcomeScreen(id: any) {
     //   headers: new HttpHeaders()
     //     .set('Authorization', `Bearer ${this.token}`)
     // };
+
+    addScreeDetail(form:any) {
+      return this.http.post(Links.ADD_SCREEN_TYPE , form, httpOptions).pipe(map((response: any) => response));
+    }
+    getScreenDetail(){
+      return this.http.get(Links.GET_SCREEN_TYPE, httpOptions).pipe(map((response: any) => response)); 
+    }
+    getScreenContentDetail(){
+      return this.http.get(Links.GET_SCREEN_CONTENT_TYPE, httpOptions).pipe(map((response: any) => response)); 
+    }
+
+
+    //MESSAGE 
+    getMessage(){
+      return this.http.get(Links.GET_MESSAGE_TYPE+ '?languageId=' + 1 , httpOptions).pipe(map((response: any) => response)); 
+    }
 }
