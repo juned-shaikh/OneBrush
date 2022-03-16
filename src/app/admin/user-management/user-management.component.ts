@@ -122,23 +122,20 @@ export class UserManagementComponent implements OnInit {
       console.log(error);
     })
   }
+
   viewProfile(userId: any) {
-    localStorage.setItem("userId", userId)
-    sessionStorage.setItem("selection", JSON.stringify(this.selection));
-    this.router.navigate(['admin/user-profile']);
+    this.router.navigate(['/admin/user-detail'], { queryParams: { id: userId } })
   }
 
   blockUnblockUser(id:any, event:any){
     
-    let data={  "authId":0 ,
-                "data":  this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],id)
+    let data = { "authId" : 0 ,
+                 "data" : this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],id)
               }
 
     this.authService.blockUnblockUser(data).subscribe(res => {
       console.log("block res",res);
-      
       if (res.response == 200) {
-
         this.toastr.success(res.message);
       } else {
         this.toastr.error(res.message);
@@ -148,6 +145,25 @@ export class UserManagementComponent implements OnInit {
       this.toastr.error('Technical Issue.')
       console.log(error);
     })
+  }
+
+deleteUser(id:any){
+  console.log("IDDDDD...",id);
+    
+  const data = {
+        "authId" : 0,
+        "data" : this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],id) 
+      }
+
+    console.log("data",data);
+
+    this.authService.deleteUserByAdmin(data).subscribe(res=>{
+      console.log("res",res);
+    },err => {
+        this.threeDService.hide();
+        this.toastr.error('Technical Issue.')
+    } )
+
   }
 
 }
