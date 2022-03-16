@@ -20,20 +20,21 @@ export class AddScreenComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator !: MatPaginator;
   displayedColumns: string[] = ['sNo', 'screenname'];
   addscreenForm: FormGroup = new FormGroup({});
+  screenData: any;
+  name: any;
+  screenId: any;
 
     constructor(public dialog: MatDialog, private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService, private fb: FormBuilder,) {
 
       this.addscreenForm = this.fb.group({
         name: ['', Validators.required],
-        username: ['', Validators.required],
-        password: ['', Validators.required],
-        confirmpassword: ['', Validators.required],
+        id: ['0']
       })
     }
 
   
     ngOnInit(): void {
-      // getAddScreenData();
+      this.getAddScreenData();
     }
 
     openPopup() {
@@ -44,44 +45,45 @@ export class AddScreenComponent implements OnInit {
       this.displayStyle = "none";
     }
 
-    // getAddScreenData() {
-    //   this.threeDService.show();
-    //   this.authService.getWelcomeScreen().subscribe(res => {
-    //     if (res.responseCode == 200) {
-    //       this.threeDService.hide();
-    //       this.WelcomeData = res.data;
-    //       this.id = res.data.caroselId;
-    //       console.log(res.data.caroselId, "res.data")
-    //       this.threeDService.hide();
+    getAddScreenData() {
+      this.threeDService.show();
+      this.authService.getScreenDetail().subscribe(res => {
+        if (res.responseCode == 200) {
+          this.threeDService.hide();
+          this.screenData = res.data;
+          
+          this.screenId = res.data.id;
+          this.name= res.data.name;
+          console.log( this.screenData, "res.data")
+          this.threeDService.hide();
   
-    //     } else {
-    //       this.threeDService.hide();
-    //       this.toastr.error(res.message);
-    //     }
-    //     console.log(res, ':sdsdsdsd');
+        } else {
+          this.threeDService.hide();
+          this.toastr.error(res.message);
+        }
+        console.log(res, ':sdsdsdsd');
   
-    //   })
-    // }
+      })
+    }
   
-    // addScreenData() {
-    //   // this.threeDService.show();
-    //   console.log(this.screenForm.value, "durgesh")
-    //   this.authService.addWelcomeScreen(this.screenForm.value).subscribe(res => {
-    //     if (res.responseCode == 200) {
-    //       this.threeDService.hide();
-    //       this.toastr.success(res.message);
-    //       this.closePopup();
-    //     }
-    //     else {
-    //       this.threeDService.hide();
-    //       this.toastr.error(res.message)
-    //     }
-    //   }, error => {
-    //     this.threeDService.hide();
-    //     this.toastr.error('Technical Issue.')
-    //     console.log(error);
-    //   })
-    // }
+    addScreenData() {
+      console.log(this.addscreenForm.value, "durgesh")
+      this.authService.addScreeDetail(this.addscreenForm.value).subscribe(res => {
+        if (res.responseCode == 200) {
+          this.threeDService.hide();
+          this.toastr.success(res.message);
+          this.closePopup();
+        }
+        else {
+          this.threeDService.hide();
+          this.toastr.error(res.message)
+        }
+      }, error => {
+        this.threeDService.hide();
+        this.toastr.error('Technical Issue.')
+        console.log(error);
+      })
+    }
   
 
   }

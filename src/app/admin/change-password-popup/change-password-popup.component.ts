@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
+import { EncryptDecryptService } from 'src/app/service/encrypt-decrypt.service';
 import { ThreeDServiceService } from 'src/app/service/three-dservice.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { ThreeDServiceService } from 'src/app/service/three-dservice.service';
   styleUrls: ['./change-password-popup.component.scss']
 })
 export class ChangePasswordPopupComponent implements OnInit {
-
+  adminId:any;
   changePasswordForm: any;
 
   constructor(public fb: FormBuilder,
@@ -20,6 +21,7 @@ export class ChangePasswordPopupComponent implements OnInit {
     private threeDService: ThreeDServiceService,
     private authService: AuthService,
     private toastr: ToastrService,
+    public encryptDecryptService:EncryptDecryptService,
     public dialogRef: MatDialogRef<ChangePasswordPopupComponent>) {
     this.changePasswordForm = this.fb.group({
       old_password: ['', Validators.required],
@@ -38,15 +40,29 @@ export class ChangePasswordPopupComponent implements OnInit {
   changePassword() {
     if (this.changePasswordForm.valid) {
       this.threeDService.show();
-      let adminId: any = sessionStorage.getItem("adminId");
+      let adminDetail: any = sessionStorage.getItem("adminDetail");
+      adminDetail = JSON.parse(adminDetail)
+      this.adminId = adminDetail.adminId;
+      let password: any = sessionStorage.getItem("password");
+      console.log(this.adminId,'adminId find---');
+      
+let encyptedData={
+  adminId:this.adminId,
+  password:this.changePasswordForm.value.new_password
+}
+console.log(encyptedData,'encyptedData Data ----');
+
       let reqData = {
-        id: parseInt(JSON.parse(adminId)),
-        newPassword: this.changePasswordForm.value.new_password,
-        oldPassword: this.changePasswordForm.value.old_password,
+        authId: 0,
+        data: this.encryptDecryptService.encryptData(this.encryptDecryptService.secretKey[0],encyptedData)
+        ,
+        // oldPassword: password,
       }
+      console.log(reqData,'req Data ----');
+      
       this.authService.changePassword(reqData).subscribe(res => {
         this.threeDService.hide();
-        if (res.response == 200 && res.status == 'SUCCESS') {
+        if (res.responseCode == 200) {
           this.toastr.success(res.message);
           this.dialogRef.close();
         } else {

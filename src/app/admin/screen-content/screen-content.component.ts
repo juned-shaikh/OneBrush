@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { fadeInAnimation } from './../../service/route.animation';
-import { data } from 'jquery';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/service/auth.service';
 import { ThreeDServiceService } from 'src/app/service/three-dservice.service';
+import { AuthService } from 'src/app/service/auth.service';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-screen-content',
   templateUrl: './screen-content.component.html',
@@ -18,12 +19,37 @@ export class ScreenContentComponent implements OnInit {
 
   displayStyles: any = "none";
   displayStyle: any = "none";
-  constructor() { }
+  addscreenForm: FormGroup = new FormGroup({});
+  screenData: any;
+  name: any;
+  screenId: any;
+  constructor(public dialog: MatDialog, private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService, private fb: FormBuilder,) {
+    this.getScreenContentData();
+   }
 
   ngOnInit(): void {
   }
 
+  getScreenContentData() {
+    this.threeDService.show();
+    this.authService.getScreenContentDetail().subscribe(res => {
+      if (res.responseCode == 200) {
+        this.threeDService.hide();
+        this.screenData = res.data;
+        console.log(this.screenData,'array print')
+        this.screenId = res.data.id;
+        this.name= res.data.name;
+        this.threeDService.hide();
 
+      } else {
+        this.threeDService.hide();
+        this.toastr.error(res.message);
+      }
+    })
+  }
+  screenNameChange(e:any){
+      this.name=e;
+  }
 
   openPopup() {
     this.displayStyle= "block";

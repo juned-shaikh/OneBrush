@@ -22,9 +22,9 @@
                             <div>
                                 <table mat-table class="full-wid">
                                     <ng-container matColumnDef="sNo">
-                                        <th mat-header-cell *matHeaderCellDef>#</th>
+                                        <th mat-header-cell *matHeaderCellDef>S no.</th>
                                         <td mat-cell *matCellDef="let element; let i = index">
-                                            {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }}
+                                            {{ (i+1)}}
                                         </td>
                                     </ng-container>
                                     <ng-container matColumnDef="screen">
@@ -90,11 +90,9 @@
                                                     <div class="form-outline mb-4 text-left">
                                                         <label class="form-label"> Screen </label>
                                                         <select id="term" type="text" class="form-control" 
-                                                          placeholder="Name">
+                                                          placeholder="Name" (change)="screenNameChange($event)">
                                                           <option value="" selected hidden disabled>Select</option>
-                                                          <option>1</option>
-                                                          <option>2</option>
-
+                                                          <option *ngFor="let s of screenData" [value]="s.id">{{s.name}}</option>
                                                         </select>
                                                       </div>
                                                     <div class="form-outline mb-4 text-left">

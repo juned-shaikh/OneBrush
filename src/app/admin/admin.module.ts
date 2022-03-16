@@ -22,6 +22,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component'
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { MessageComponent } from './message/message.component';
 import { ScreenContentComponent } from './screen-content/screen-content.component';
 import { AddScreenComponent } from './add-screen/add-screen.component';
 
@@ -50,6 +51,7 @@ import { AddScreenComponent } from './add-screen/add-screen.component';
     ChangePasswordPopupComponent,
     UserDetailsComponent,
     WelcomeScreenComponent,
+    MessageComponent,
     ScreenContentComponent,
     AddScreenComponent,
 

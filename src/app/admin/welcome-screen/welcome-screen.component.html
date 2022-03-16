@@ -85,7 +85,7 @@
                                     <owl-carousel-o [options]="customOptions">
                                         <ng-container *ngFor="let slide of WelcomeData" class="card">
                                             <ng-template carouselSlide><i class="bx bx-trash" (click)="deleteWelcomeData(slide.caroselId)"></i>
-                                                <i class="bx bx-edit" (click)="updateopenPopup(slide.caroselId,slide.title,slide.descriptions,slide.docfile)"></i>
+                                                <i class="bx bx-edit" (click)="updateopenPopup(slide.caroselId,slide.title,slide.descriptions,slide.imgUrl)"></i>
                                                 <img [src]="slide.imgUrl" [alt]="slide.alt">
                                                 <h4 class="card-title teext">{{slide.title}}</h4>
                                                 <p class="card-text">{{slide.descriptions}}</p>
@@ -114,7 +114,7 @@
                         <div class="form-outline input-group mb-4">
                             <label class="form-label text-left" for="">Update Image</label>
                             <div class="custom-file text-left">
-                                <input type="file" #inputFile id="image"
+                                <input type="file" #inputFile id="image" formControlName="docfile"
                                     (change)="onSelectDoc($event)" id="inputGroupFile01"
                                     aria-describedby="inputGroupFileAddon01">
                               
