@@ -21,6 +21,8 @@ export class Links {
     public static USER_RESET_PASSWORD = Links.BASE + '/user/reset-password';
     public static USER_VERIFY_REQUEST = Links.BASE + '/user/verify-request';
     public static GET_USER_DETAIL = Links.BASE +'/api/user/get_user_profile';
+    public static UPDATE_USER_PROFILE = Links.BASE +'/api/user/user_profile_update';
+    
     // public static USER_VERIFY_ACCOUNT_REQUEST = Links.BASE + '/user/verify-user-account';
 
     // /api/user/get_user_profile/{id}

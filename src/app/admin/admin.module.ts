@@ -42,7 +42,9 @@ import { AddScreenComponent } from './add-screen/add-screen.component';
     MatCardModule,
     MatDialogModule,
     NgbCarouselModule,
-    CarouselModule
+    CarouselModule,
+    MatInputModule, MatIconModule,
+
   ],
   declarations: [
     ContentLayoutComponent,

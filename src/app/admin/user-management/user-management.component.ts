@@ -128,11 +128,10 @@ export class UserManagementComponent implements OnInit {
   }
 
   blockUnblockUser(id:any, event:any){
-    
     let data = { "authId" : 0 ,
                  "data" : this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],id)
               }
-
+              
     this.authService.blockUnblockUser(data).subscribe(res => {
       console.log("block res",res);
       if (res.response == 200) {
@@ -149,16 +148,22 @@ export class UserManagementComponent implements OnInit {
 
 deleteUser(id:any){
   console.log("IDDDDD...",id);
-    
-  const data = {
+  
+  let uuId={
+      "uuId" : id
+  }  
+
+  let data = {
         "authId" : 0,
-        "data" : this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],id) 
+        "data" : this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],uuId) 
       }
 
     console.log("data",data);
 
     this.authService.deleteUserByAdmin(data).subscribe(res=>{
       console.log("res",res);
+      this.getAllUsers();
+
     },err => {
         this.threeDService.hide();
         this.toastr.error('Technical Issue.')

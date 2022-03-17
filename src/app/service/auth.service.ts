@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Links } from '../links.module';
 import { map } from 'rxjs/operators';
+import { ThreeDServiceService } from './three-dservice.service';
 
 const apiToken = sessionStorage.getItem("Token");
 console.log(apiToken,'check--------------');
@@ -35,7 +36,10 @@ const httpOptions = {
 export class AuthService {
 
   constructor(private router: Router, private toastr: ToastrService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private threeDService: ThreeDServiceService,
+    
+    ) { }
 
   token = sessionStorage.getItem('Token')
 
@@ -64,6 +68,12 @@ export class AuthService {
   updateUserStatus(id: any, status: any) {
     return this.http.post(Links.UPDATE_USER_STATUS + '?uuid=' + id + '&status=' + status, {}, httpOptions)
       .pipe(map((response: any) => response));
+  }
+
+  updateUserInfo(data:any){
+    this.threeDService.show();
+    return this.http.put(Links.UPDATE_USER_PROFILE,data , httpOptions)
+    .pipe(map((response: any) => response));
   }
 
   changePassword(data: any) {
