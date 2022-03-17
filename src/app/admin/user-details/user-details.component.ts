@@ -16,13 +16,13 @@ import { ThreeDServiceService } from 'src/app/service/three-dservice.service';
 
 
 export class UserDetailsComponent implements OnInit {
-
   userDetail: any;
   age: any;
   userDetailForm!: FormGroup;
   submitted = false;
   viewForm = true;
-
+  maxDate!: Date;
+  today: any;
 
   constructor(private toastr: ToastrService,
     private router: Router,
@@ -31,18 +31,20 @@ export class UserDetailsComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public encrptDecryptService: EncryptDecryptService,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+
+    this.maxDate = new Date();
+
+  }
 
   ngOnInit(): void {
     let userId = localStorage.getItem("userId")
     this.activatedRoute.paramMap.subscribe(params => {
       let id = params.get('id');
       console.log("Id:", id);
-
       if (id) {
         this.getUserDetails(id)
       }
-
 
     });
 
@@ -50,7 +52,7 @@ export class UserDetailsComponent implements OnInit {
     //   name: ['', Validators.required],
     // });
 
-
+    this.setMaxDateToday();
   }
 
   get f() { return this.userDetailForm && this.userDetailForm.controls; }
@@ -74,7 +76,7 @@ export class UserDetailsComponent implements OnInit {
           this.userDetailForm = this.formBuilder.group({
             name: [this.userDetail.name, Validators.required],
             surname: [this.userDetail.surname, Validators.required],
-            emailAddress: [this.userDetail.emailAddress, Validators.required],
+            emailAddress: [this.userDetail.emailAddress, [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
             age: [this.calculateAge(this.userDetail.dateOfBirth), Validators.required],
             dateOfBirth: [this.userDetail.dateOfBirth, Validators.required],
             gender: [this.userDetail.gender, Validators.required],
@@ -125,7 +127,6 @@ export class UserDetailsComponent implements OnInit {
       "name": this.userDetailForm.value.name,
       "surname": this.userDetailForm.value.surname,
       "emailAddress": this.userDetailForm.value.emailAddress,
-
       "preferredLanguage": this.userDetailForm.value.preferredLanguage,
       "gender": this.userDetailForm.value.gender,
       "dateOfBirth": this.userDetailForm.value.dateOfBirth,
@@ -152,7 +153,7 @@ export class UserDetailsComponent implements OnInit {
 
     this.authService.updateUserInfo(data).subscribe(res => {
       console.log("update user res", res);
-   
+
 
       if (res.responseCode == 200) {
         this.toastr.success(res.message);
@@ -174,8 +175,31 @@ export class UserDetailsComponent implements OnInit {
 
   }
 
+
   editForm() {
     this.viewForm = false;
+  }
+
+  changeLanguage(e: any) {
+
+  }
+
+  setMaxDateToday() {
+    this.today = new Date();
+    var dd: any = this.today.getDate();
+    var mm: any = this.today.getMonth() + 1; //January is 0!
+    var yyyy: any = this.today.getFullYear();
+
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+
+    this.today = yyyy + '-' + mm + '-' + dd;
+    // var x= document.getElementById("datefield").setAttribute("max", today);
   }
 
 }

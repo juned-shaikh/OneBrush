@@ -25,6 +25,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MessageComponent } from './message/message.component';
 import { ScreenContentComponent } from './screen-content/screen-content.component';
 import { AddScreenComponent } from './add-screen/add-screen.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -44,6 +46,10 @@ import { AddScreenComponent } from './add-screen/add-screen.component';
     NgbCarouselModule,
     CarouselModule,
     MatInputModule, MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
+
+     
 
   ],
   declarations: [

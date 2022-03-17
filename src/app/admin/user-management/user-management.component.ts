@@ -66,19 +66,14 @@ export class UserManagementComponent implements OnInit {
     console.log("age",this.age);
   }
 
-  //   calculateAge(birthdate: any) {
-  //   console.log("age real",moment().diff(birthdate, 'years'));
-  //   return moment().diff(birthdate, 'years');
-  // }
-  
 
   getAllUsers() {
     // this.userData=[];
     this.threeDService.show();
     this.authService.getAllUsers(this.selection).subscribe(res => {
-      this.threeDService.hide();
       console.log("get all users res", res)
       if (res.responseCode == 200) {
+        this.threeDService.hide();
          const result = JSON.parse(this.encrptDecryptService.decrptData(this.encrptDecryptService.secretKey[res.authId],res.data))
          console.log("result",result)
          this.userData=[result]        
@@ -86,6 +81,7 @@ export class UserManagementComponent implements OnInit {
          console.log("result",this.userData )
          this.noOfRecors = res.totalUser
       } else {
+        this.threeDService.hide();
         this.toastr.error(res.message);
       }
     }, error => {
@@ -104,11 +100,13 @@ export class UserManagementComponent implements OnInit {
     sessionStorage.setItem("selection", JSON.stringify(this.selection));
     this.getAllUsers();
   }
+
   updateFilter() {
     this.selection.page = 0;
     this.paginator.firstPage();
     this.getAllUsers();
   }
+
   changeStatus(id: any, event: any) {
     this.authService.updateUserStatus(id, event.checked).subscribe(res => {
       if (res.response == 200) {
@@ -128,9 +126,11 @@ export class UserManagementComponent implements OnInit {
   }
 
   blockUnblockUser(id:any, event:any){
+
     let data = { "authId" : 0 ,
                  "data" : this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],id)
               }
+              console.log("data",data);
               
     this.authService.blockUnblockUser(data).subscribe(res => {
       console.log("block res",res);
