@@ -34,9 +34,12 @@ export class Links {
     public static  DELETE_WELCOME_SCREEN = Links.BASE + '/api/admin/delete_welcome_carousel';
     public static  ADD_SCREEN_TYPE = Links.BASE + '/api/admin/save_screen_type';
     public static  GET_SCREEN_TYPE = Links.BASE + '/api/admin/get_all_screen_type';
-    public static GET_SCREEN_CONTENT_TYPE = Links.BASE + '/api/admin/get_all_screen_type';
+    public static GET_SCREEN_CONTENT_DETAIL = Links.BASE + '/api/admin/get_all_screen_Detail';
+    public static ADD_SCREEN_CONTENT_DETAIL = Links.BASE + '/api/admin/save_screen_Detail';
    
     //MESSAGE
     public static GET_MESSAGE_TYPE = Links.BASE + '/api/admin/get_constant_message';
+    public static UPDATE_MESSAGE = Links.BASE + '/api/admin/update_constant_message';
+
 
 }

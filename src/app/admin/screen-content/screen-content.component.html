@@ -20,9 +20,9 @@
                                 </div>
                             </div>
                             <div>
-                                <table mat-table class="full-wid">
-                                    <ng-container matColumnDef="sNo">
-                                        <th mat-header-cell *matHeaderCellDef>S no.</th>
+                                <table mat-table class="full-wid" [dataSource]="screenContentData">
+                                    <ng-container matColumnDef="sno">
+                                        <th mat-header-cell *matHeaderCellDef>S No.</th>
                                         <td mat-cell *matCellDef="let element; let i = index">
                                             {{ (i+1)}}
                                         </td>
@@ -31,15 +31,23 @@
                                         <th mat-header-cell *matHeaderCellDef>Screen</th>
                                         <td mat-cell *matCellDef="let element">
                                             <div fxLayoutAlign="start center">
-                                                <!-- <div class="make-ellipse">{{element.firstName}} </div> -->
+                                                <div class="make-ellipse">{{element.screenName}} </div>
                                             </div>
                                         </td>
                                     </ng-container>
-                                    <ng-container matColumnDef="content">
-                                        <th mat-header-cell *matHeaderCellDef>Content</th>
+                                    <ng-container matColumnDef="title">
+                                        <th mat-header-cell *matHeaderCellDef>Title</th>
                                         <td mat-cell *matCellDef="let element">
                                             <div fxLayoutAlign="start center">
-                                                <!-- <div class="make-ellipse">{{element.lastName}} </div> -->
+                                                <div class="make-ellipse">{{element.title}} </div>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="description">
+                                        <th mat-header-cell *matHeaderCellDef>Description</th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <div fxLayoutAlign="start center">
+                                                <div class="make-ellipse">{{element.discription}} </div>
                                             </div>
                                         </td>
                                     </ng-container>
@@ -86,10 +94,10 @@
                                         <!-- Modal body -->
                                         <div class="modal-body">
                                             <div class="welcome-form">
-                                                <form>
+                                                <form [formGroup]="screenContentForm">
                                                     <div class="form-outline mb-4 text-left">
                                                         <label class="form-label"> Screen </label>
-                                                        <select id="term" type="text" class="form-control" 
+                                                        <select id="term" type="text" class="form-control"  formControlName="screenTypeEntity"
                                                           placeholder="Name" (change)="screenNameChange($event)">
                                                           <option value="" selected hidden disabled>Select</option>
                                                           <option *ngFor="let s of screenData" [value]="s.id">{{s.name}}</option>
@@ -97,18 +105,18 @@
                                                       </div>
                                                     <div class="form-outline mb-4 text-left">
                                                         <label class="form-label text-left" for="">Title</label>
-                                                        <input type="text" id="form2Example11"
+                                                        <input type="text" id="form2Example11" formControlName="title"
                                                             class="form-control" placeholder="Add title" />
                                                     </div>
     
                                                     <div class="form-outline mb-4 text-left">
-                                                        <label class="form-label" for="">Discription</label>
-                                                        <textarea class="form-control" 
+                                                        <label class="form-label" for="">Description</label>
+                                                        <textarea class="form-control" formControlName="discription"
                                                             id="exampleFormControlTextarea5" rows="3"></textarea>
                                                     </div>
-                                                    <button
+                                                    <button type="submit"
                                                         class="btn btn-primary text-right text-light bg-secondary border-secondary mb-3"
-                                                        >Submit</button>
+                                                        (click)="addScreenContentData()">Submit</button>
                                                 </form>
                                             </div>
                                         </div>

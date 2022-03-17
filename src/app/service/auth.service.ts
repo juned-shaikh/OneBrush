@@ -164,13 +164,22 @@ deleteWelcomeScreen(id: any) {
     getScreenDetail(){
       return this.http.get(Links.GET_SCREEN_TYPE, httpOptions).pipe(map((response: any) => response)); 
     }
+    //Screen content//
     getScreenContentDetail(){
-      return this.http.get(Links.GET_SCREEN_CONTENT_TYPE, httpOptions).pipe(map((response: any) => response)); 
+      return this.http.get(Links.GET_SCREEN_CONTENT_DETAIL, httpOptions).pipe(map((response: any) => response)); 
     }
-
-
+    
+    addScreenContentDetail(form:any) {
+      return this.http.post(Links.ADD_SCREEN_CONTENT_DETAIL , form, httpOptions).pipe(map((response: any) => response));
+    }
     //MESSAGE 
     getMessage(){
       return this.http.get(Links.GET_MESSAGE_TYPE+ '?languageId=' + 1 , httpOptions).pipe(map((response: any) => response)); 
     }
+
+    updateMessage(form:any) { 
+      return this.http.put(Links.UPDATE_MESSAGE , form , httpOptions)
+        .pipe(map((response: any) => response));
+    }
+
 }
