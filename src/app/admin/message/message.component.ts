@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { ThreeDServiceService } from 'src/app/service/three-dservice.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -24,8 +25,15 @@ export class MessageComponent implements OnInit {
   noOfRecors = 0;
   selection: any = 0;
   displayStyle: any = "none";
+  messageForm: FormGroup = new FormGroup({});
+  id: any;
+  messageValue: any;
 
-  constructor(private toastr: ToastrService, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService) {
+  constructor(private toastr: ToastrService,private fb: FormBuilder, private router: Router, private threeDService: ThreeDServiceService, public authService: AuthService) {
+    this.messageForm = this.fb.group({
+      messageValue:[''],
+      id:['']
+    })
   }
 
   ngOnInit(): void {
@@ -43,6 +51,7 @@ export class MessageComponent implements OnInit {
     }
     this.getAllUsers();
   }
+
   getAllUsers() {
     this.userData = [];
     this.threeDService.show();
@@ -60,6 +69,26 @@ export class MessageComponent implements OnInit {
       console.log(error);
     })
   }
+
+  updateMessageData() {
+    this.authService.updateMessage(this.messageForm.value).subscribe(res => {
+      if (res.responseCode == 200) {
+        this.threeDService.hide();
+        this.toastr.success(res.message);
+        this.closePopup();
+      }
+      else {
+        this.threeDService.hide();
+        this.toastr.error(res.message)
+      }
+    }, error => {
+      this.threeDService.hide();
+      this.toastr.error('Technical Issue.')
+      console.log(error);
+    })
+  }
+
+
   getPaginatorData($event: any) {
     this.selection.size = $event.pageSize;
     this.selection.page = $event.pageIndex;
@@ -89,9 +118,20 @@ export class MessageComponent implements OnInit {
     sessionStorage.setItem("selection", JSON.stringify(this.selection));
     this.router.navigate(['admin/user-profile']);
   }
-  openPopup() {
-    this.displayStyle= "block";
+
+  openPopup(messageid:any,messageValue:any) {
+    this.messageForm.patchValue({
+      messageValue :messageValue,
+    id : messageid
+
+    })
+    this.messageValue = messageValue
+    this.id = messageid;
+    console.log(this.messageValue,'juendedede');
+    
+    this.displayStyle = "block";
   }
+
 
   closePopup() {
     this.displayStyle = "none";

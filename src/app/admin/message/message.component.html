@@ -60,13 +60,13 @@
 						</div>
 					</td>
 				</ng-container> -->
-				<ng-container matColumnDef="action">
+				<ng-container matColumnDef="action" >
 					<th mat-header-cell *matHeaderCellDef>Action</th>
-					<td mat-cell *matCellDef="let element">
+					<td mat-cell *matCellDef="let element" >
 						<div fxLayoutAlign="start center">
 								<div class="make-ellipse">
 									<span class="view-btn"  matTooltip="View" mat-button (click)="viewProfile(element.uuid)" title="View Profile" matTooltip="View">
-									<mat-icon (click)="openPopup()">remove_red_eye</mat-icon>
+									<mat-icon (click)="openPopup(element.id,element.messageValue)">remove_red_eye</mat-icon>
 								</span>
 								</div>
 					    </div>
@@ -101,10 +101,10 @@
 							<form action="" autocomplete="off">
 								<div class="form-outline mb-4 text-left">
 									<label class="form-label text-left" for="">Message:</label>
-									<input type="text" id="form2Example11" formControlName="message"
-										class="form-control" placeholder="message" />
+									<input type="text" id="form2Example11" formControlName="messageValue"
+										class="form-control" placeholder="message" value={{messageValue}} />
 								</div>
-								<button 
+								<button  (click)="updateMessageData()"
 									class="btn btn-primary text-right text-light bg-secondary border-secondary mb-3"
 									>Submit</button>
 							</form>
