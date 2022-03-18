@@ -25,125 +25,153 @@
                   (ngSubmit)="onSubmit()">
 
                   <div *ngIf="viewForm">
-                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" [attr.disabled]="true" formControlName="name" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                        <div *ngIf="f.name.errors" class="invalid-feedback">
-                           <div *ngIf="f.name.errors.required">Name is required</div>
-                        </div>
+ 
+                     <div class="row">
+                        <mat-form-field  appearance="fill">
+                           <mat-label class="dia-label required-astrick">Name</mat-label>
+                           <input readonly matInput formControlName="name" type="text">
+                           <mat-error *ngIf="f.name.hasError('required') && f.name.touched">
+                              Name is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
 
-                     <div class="form-group">
-                        <label for="surname">SurnName</label>
-                        <input type="text" [attr.disabled]="true" formControlName="surname" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.surname.errors }" />
-                        <div *ngIf="f.surname.errors" class="invalid-feedback">
-                           <div *ngIf="f.surname.errors.required">SurName is required</div>
-                        </div>
+                     <div class="row">
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label required-astrick">SurName</mat-label>
+                           <input readonly matInput formControlName="surname" type="text" placeholder="Enter you name">
+                           <mat-error *ngIf="f.surname.hasError('required') && f.surname.touched">
+                              SurName is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
 
-                     <div class="form-group">
-                        <label for="emailAddress">Email</label>
-                        <input type="text" [attr.disabled]="true" formControlName="emailAddress" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
-                        <div *ngIf="f.emailAddress.errors" class="invalid-feedback">
-                           <div *ngIf="f.emailAddress.errors.required">EmailAddress is required</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <input type="text" [attr.disabled]="true" formControlName="gender" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" />
-                        <div *ngIf="f.gender.errors" class="invalid-feedback">
-                           <div *ngIf="f.gender.errors.required">Gender is required</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="dateOfBirth">DOB</label>
-                        <input type="text" [attr.disabled]="true" formControlName="dateOfBirth" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }" />
-                        <div *ngIf="f.dateOfBirth.errors" class="invalid-feedback">
-                           <div *ngIf="f.dateOfBirth.errors.required">dateOfBirth is required</div>
-                        </div>
+                     <div class="row" >
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label required-astrick">Email</mat-label>
+                           <input readonly matInput formControlName="emailAddress" type="text" placeholder="Enter you email">
+                           <mat-error *ngIf="f.emailAddress.hasError('required') && f.emailAddress.touched">
+                              EmailAddress is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
 
 
-                     <div class="form-group">
-                        <label for="age">Age</label>
-                        <input type="text" [attr.disabled]="true" formControlName="age" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.age.errors }" />
-                        <div *ngIf="f.age.errors" class="invalid-feedback">
-                           <div *ngIf="f.age.errors.required">Age is required</div>
-                        </div>
+                     <div class="row">
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label required-astrick">Gender</mat-label>
+                           <input readonly matInput formControlName="gender" type="text" placeholder="Enter you gender">
+                           <mat-error *ngIf="f.gender.hasError('required') && f.gender.touched">
+                              Gender is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field appearance="fill">
+                           <mat-label>Date</mat-label>
+                           <input readonly matInput [matDatepicker]="myPicker" formControlName="dateOfBirth"
+                              placeholder="dateOfBirth">
+                           <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+                           <mat-datepicker #myPicker></mat-datepicker>
+                           <mat-error *ngIf="f.dateOfBirth.hasError('required') && f.dateOfBirth.touched">
+                              Birth Date is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label required-astrick">Age</mat-label>
+                           <input readonly matInput formControlName="age" type="text" placeholder="Enter you age">
+                           <mat-error *ngIf="f.age.hasError('required') && f.age.touched">
+                              Age is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+                     <div class="row">
+
+                        <mat-form-field appearance="fill" >
+                           <mat-label class="required-astrick">Preferred Language</mat-label>
+                           <mat-select  readonly formControlName="preferredLanguage">
+                              <mat-option  value="EN"> EN </mat-option>
+                              <mat-option value="German">German</mat-option>
+                           </mat-select>
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label ">Allow FirmWare Update</mat-label>
+                           <input readonly matInput formControlName="allowFirmWareUpdate" type="text"
+                              placeholder="Enter FirmWare Update">
+
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label required-astrick">Street No</mat-label>
+                           <input readonly matInput formControlName="streetAndHousenumber" type="text"
+                           placeholder="Enter Street No" >
+                           <mat-error
+                              *ngIf="f.streetAndHousenumber.hasError('required') && f.streetAndHousenumber.touched">
+                              Street No is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label required-astrick">ZipCode</mat-label>
+                           <input readonly matInput formControlName="zipcode" type="text" placeholder="Enter you ageage">
+                           <mat-error *ngIf="f.zipcode.hasError('required') && f.zipcode.touched">
+                              ZipCode is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label required-astrick">City</mat-label>
+                           <input readonly matInput formControlName="city" type="text" placeholder="Enter you city">
+                           <mat-error *ngIf="f.city.hasError('required') && f.city.touched">
+                              City is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+    
+
+                     <div class="row">
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label required-astrick">Country</mat-label>
+                           <input readonly matInput formControlName="country" type="text" placeholder="Enter you country">
+                           <mat-error *ngIf="f.country.hasError('required') && f.country.touched">
+                              Country is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
 
 
 
-                     <div class="form-group">
-                        <label for="preferredLanguage">Preferred Language</label>
-                        <input type="text" [attr.disabled]="true" formControlName="preferredLanguage"
-                           class="form-control" [ngClass]="{ 'is-invalid': submitted && f.preferredLanguage.errors }" />
-                        <div *ngIf="f.preferredLanguage.errors" class="invalid-feedback">
-                           <div *ngIf="f.preferredLanguage.errors.required">PreferredLanguage is required</div>
-                        </div>
+                     <div class="row">
+                        <mat-form-field class="dia-input" appearance="fill">
+                           <mat-label class="dia-label required-astrick">telefontelefon</mat-label>
+                           <input readonly matInput formControlName="telefon" type="number" placeholder="Enter you telefon">
+                           <mat-error *ngIf="f.telefon.hasError('required') && f.telefon.touched">
+                              Mobile no is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
 
-                     <div class="form-group">
-                        <label for="allowFirmWareUpdate">Firm Updates</label>
-                        <input type="text" [attr.disabled]="true" formControlName="allowFirmWareUpdate"
-                           class="form-control" />
-
-                     </div>
-
-                     <div class="form-group">
-                        <label for="streetAndHousenumber">Street No </label>
-                        <input type="text" [attr.disabled]="true" formControlName="streetAndHousenumber"
-                           class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.streetAndHousenumber.errors }" />
-                        <div *ngIf="f.streetAndHousenumber.errors" class="invalid-feedback">
-                           <div *ngIf="f.streetAndHousenumber.errors.required">Street No is required</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="zipcode">Zipcode</label>
-                        <input type="text" [attr.disabled]="true" formControlName="zipcode" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.zipcode.errors }" />
-                        <div *ngIf="f.zipcode.errors" class="invalid-feedback">
-                           <div *ngIf="f.zipcode.errors.required">Zipcode is required</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="city">City</label>
-                        <input type="text" [attr.disabled]="true" formControlName="city" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
-                        <div *ngIf="f.city.errors" class="invalid-feedback">
-                           <div *ngIf="f.city.errors.required">City is required</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="country">Country</label>
-                        <input type="text" [attr.disabled]="true" formControlName="country" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.country.errors }" />
-                        <div *ngIf="f.country.errors" class="invalid-feedback">
-                           <div *ngIf="f.country.errors.required">Country is required</div>
-                        </div>
-                     </div>
-
-
-                     <div class="form-group">
-                        <label for="telefon">Mobile No</label>
-                        <input type="number" [attr.disabled]="true" formControlName="telefon" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.telefon.errors }" />
-                        <div *ngIf="f.telefon.errors" class="invalid-feedback">
-                           <div *ngIf="f.telefon.errors.required">Mobile No is required</div>
-                        </div>
-                     </div>
 
                      <div class="form-group">
                         <button type="button" (click)="editForm()" class="btn btn-primary">
@@ -154,159 +182,155 @@
                   </div>
 
                   <div *ngIf="!viewForm">
-                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" formControlName="name" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                        <div *ngIf="f.name.errors" class="invalid-feedback">
-                           <div *ngIf="f.name.errors.required">Name is required</div>
-                        </div>
+
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">Name</mat-label>
+                           <input matInput formControlName="name" type="text">
+                           <mat-error *ngIf="f.name.hasError('required') && f.name.touched">
+                              Name is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
 
-                     <div class="form-group">
-                        <label for="surname">SurName</label>
-                        <input type="text" formControlName="surname" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.surname.errors }" />
-                        <div *ngIf="f.surname.errors" class="invalid-feedback">
-                           <div *ngIf="f.surname.errors.required">SurName is required</div>
-                        </div>
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">SurName</mat-label>
+                           <input matInput formControlName="surname" type="text" placeholder="Enter you name">
+                           <mat-error *ngIf="f.surname.hasError('required') && f.surname.touched">
+                              SurName is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
 
-                     <div class="form-group">
-                        <label for="emailAddress">Email</label>
-                        <input type="text" [attr.disabled]="true" formControlName="emailAddress" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
-                        <div *ngIf="f.emailAddress.errors" class="invalid-feedback">
-                           <div *ngIf="f.emailAddress.errors.required">EmailAddress is required</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <input type="text" formControlName="gender" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" />
-                        <div *ngIf="f.gender.errors" class="invalid-feedback">
-                           <div *ngIf="f.gender.errors.required">Gender is required</div>
-                        </div>
-                     </div>
-
-                     <!-- <div class="form-group">
-                        <label for="dateOfBirth">DOB</label>
-                        <input formControlName="dateOfBirth" class="form-control" matInput [max]="maxDate" [matDatepicker]="picker">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                        <mat-error *ngIf="f.dateOfBirth.errors && f.dateOfBirth.errors.required">Your date of birth is required</mat-error>
-                     </div>
-
-                     <mat-form-field>
-                        <mat-label>Date</mat-label>
-                        <input   matInput [matDatepicker]="myPicker"  placeholder="date">
-                        <mat-datepicker-toggle  matSuffix [for]="myPicker"></mat-datepicker-toggle>
-                        <mat-datepicker #myPicker></mat-datepicker>
-                        <mat-error *ngIf="f.dateOfBirth.errors && f.dateOfBirth.errors.required">Your date of birth is required</mat-error>
-
-                    </mat-form-field> -->
-
-                        <!-- <div *ngIf="f.dateOfBirth.errors" class="invalid-feedback">
-                           <div *ngIf="f.dateOfBirth.errors.required">dateOfBirth is required</div>
-                        </div>
-                     </div> -->
-
-
-
-                  
-                     <div class="form-group">
-                        <label for="dateOfBirth">DOB</label>
-                        <input type="date" [max]="today" formControlName="dateOfBirth" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }" />
-                        <div *ngIf="f.dateOfBirth.errors" class="invalid-feedback">
-                           <div *ngIf="f.dateOfBirth.errors.required">Date Of Birth is required</div>
-                        </div>
-                     </div> 
-
-
-                     <div class="form-group">
-                        <label for="age">Age</label>
-                        <input type="text" formControlName="age" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.age.errors }" />
-                        <div *ngIf="f.age.errors" class="invalid-feedback">
-                           <div *ngIf="f.age.errors.required">Age is required</div>
-                        </div>
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">Email</mat-label>
+                           <input matInput formControlName="emailAddress" type="text" placeholder="Enter you email">
+                           <mat-error *ngIf="f.emailAddress.hasError('required') && f.emailAddress.touched">
+                              EmailAddress is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
 
 
-                     <!-- <div class="form-group">
-                        <label for="preferredLanguage">Preferred Language</label>
-                        <input type="text" formControlName="preferredLanguage" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.preferredLanguage.errors }" />
-                        <div *ngIf="f.preferredLanguage.errors" class="invalid-feedback">
-                           <div *ngIf="f.preferredLanguage.errors.required">PreferredLanguage is required</div>
-                        </div>
-                     </div> -->
-
-                     <div class="form-group">
-                        <label for="preferredLanguage">Preferred Language</label>
-                        <select formControlName="preferredLanguage" class="form-control"
-                           (change)="changeLanguage($event)">
-                           <option disabled>Select Language</option>
-                           <option>EN</option>
-                           <option>German</option>
-                        </select>
-                        <div *ngIf="f.preferredLanguage.errors && f.preferredLanguage.invalid" class="invalid-feedback">
-                           <div *ngIf="f.preferredLanguage.errors.required">Name is required.</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="allowFirmWareUpdate">Firm Updates</label>
-                        <input type="text" formControlName="allowFirmWareUpdate" class="form-control" />
-                     </div>
-
-                     <div class="form-group">
-                        <label for="streetAndHousenumber">Street No </label>
-                        <input type="text" formControlName="streetAndHousenumber" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.streetAndHousenumber.errors }" />
-                        <div *ngIf="f.streetAndHousenumber.errors" class="invalid-feedback">
-                           <div *ngIf="f.streetAndHousenumber.errors.required">Street No is required</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="zipcode">Zipcode</label>
-                        <input type="text" formControlName="zipcode" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.zipcode.errors }" />
-                        <div *ngIf="f.zipcode.errors" class="invalid-feedback">
-                           <div *ngIf="f.zipcode.errors.required">Zipcode is required</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="city">City</label>
-                        <input type="text" formControlName="city" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
-                        <div *ngIf="f.city.errors" class="invalid-feedback">
-                           <div *ngIf="f.city.errors.required">City is required</div>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="country">Country</label>
-                        <input type="text" formControlName="country" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.country.errors }" />
-                        <div *ngIf="f.country.errors" class="invalid-feedback">
-                           <div *ngIf="f.country.errors.required">Country is required</div>
-                        </div>
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">Gender</mat-label>
+                           <input matInput formControlName="gender" type="text" placeholder="Enter you gender">
+                           <mat-error *ngIf="f.gender.hasError('required') && f.gender.touched">
+                              Gender is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
 
 
-                     <div class="form-group">
-                        <label for="telefon">Mobile No</label>
-                        <input type="number" formControlName="telefon" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.telefon.errors }" />
-                        <div *ngIf="f.telefon.errors" class="invalid-feedback">
-                           <div *ngIf="f.telefon.errors.required">Mobile No is required</div>
-                        </div>
+                     <div class="row">
+                        <mat-form-field>
+                           <mat-label>Date</mat-label>
+                           <input matInput [matDatepicker]="myPicker" formControlName="dateOfBirth"
+                              placeholder="dateOfBirth">
+                           <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+                           <mat-datepicker #myPicker></mat-datepicker>
+                           <mat-error *ngIf="f.dateOfBirth.hasError('required') && f.dateOfBirth.touched">
+                              Birth Date is required.
+                           </mat-error>
+                        </mat-form-field>
                      </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">Age</mat-label>
+                           <input matInput formControlName="age" type="text" placeholder="Enter you age">
+                           <mat-error *ngIf="f.age.hasError('required') && f.age.touched">
+                              Age is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+                     <div class="row">
+
+                        <mat-form-field >
+                           <mat-label class="required-astrick">Preferred Language</mat-label>
+                           <mat-select  formControlName="preferredLanguage">
+                              <mat-option  disabled > Select Language </mat-option>
+                              <mat-option value="EN"> EN </mat-option>
+                              <mat-option value="German">German</mat-option>
+                           </mat-select>
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label ">Allow FirmWare Update</mat-label>
+                           <input matInput formControlName="allowFirmWareUpdate" type="text"
+                              placeholder="Enter FirmWare Update">
+
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">Street No</mat-label>
+                           <input matInput formControlName="streetAndHousenumber" type="text"
+                           placeholder="Enter Street No" >
+                           <mat-error
+                              *ngIf="f.streetAndHousenumber.hasError('required') && f.streetAndHousenumber.touched">
+                              Street No is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">ZipCode</mat-label>
+                           <input matInput formControlName="zipcode" type="text" placeholder="Enter you ageage">
+                           <mat-error *ngIf="f.zipcode.hasError('required') && f.zipcode.touched">
+                              ZipCode is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">City</mat-label>
+                           <input matInput formControlName="city" type="text" placeholder="Enter you city">
+                           <mat-error *ngIf="f.city.hasError('required') && f.city.touched">
+                              City is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+    
+
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">Country</mat-label>
+                           <input matInput formControlName="country" type="text" placeholder="Enter you country">
+                           <mat-error *ngIf="f.country.hasError('required') && f.country.touched">
+                              Country is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+
+
+                     <div class="row">
+                        <mat-form-field class="dia-input">
+                           <mat-label class="dia-label required-astrick">telefontelefon</mat-label>
+                           <input matInput formControlName="telefon" type="number" placeholder="Enter you telefon">
+                           <mat-error *ngIf="f.telefon.hasError('required') && f.telefon.touched">
+                              Mobile no is required.
+                           </mat-error>
+                        </mat-form-field>
+                     </div>
+
+              
 
                      <div class="form-group">
                         <button class="btn btn-primary">

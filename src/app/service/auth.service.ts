@@ -61,6 +61,7 @@ export class AuthService {
   }
 
   blockUnblockUser( data: any) {
+    this.threeDService.show()
     return this.http.put(Links.BLOCK_UNBLOCK_USER ,data, httpOptions)
       .pipe(map((response: any) => response));
   }

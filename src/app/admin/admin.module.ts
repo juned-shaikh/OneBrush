@@ -27,6 +27,7 @@ import { ScreenContentComponent } from './screen-content/screen-content.componen
 import { AddScreenComponent } from './add-screen/add-screen.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     CarouselModule,
     MatInputModule, MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+    MatSelectModule
 
      
 

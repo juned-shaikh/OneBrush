@@ -102,7 +102,7 @@
 							<div fxLayoutAlign="start center">
 								<div class="make-ellipse">
 									<mat-slide-toggle [checked]="element.isBlocked" class="example-margin"
-										(change)="blockUnblockUser(element.uuid ,$event)" color="primary">
+										(change)="blockUnblockUser(element.uuId,element.isBlocked ,$event)" color="primary">
 									</mat-slide-toggle>
 								</div>
 							</div>

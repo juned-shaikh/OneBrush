@@ -1,3 +1,15 @@
+
+::ng-deep .grey{
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+       color: lightgray;
+    }
+    mat-form-field {
+       .mat-hint, input, ::placeholder, .mat-form-field-label {
+          color: lightgray;
+       }
+    }
+ }
+
 .header.accent.bg-colors {
     background: #e3e6e0;
     width: 100% !important;

@@ -58,14 +58,13 @@ export class UserManagementComponent implements OnInit {
     this.getAllUsers();
   }
 
-  calculateAge(date:any){
-    const bdate = new Date(date);
-    const timeDiff = Math.abs(Date.now() - bdate.getTime() );
-    this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-    return this.age;
-    console.log("age",this.age);
-  }
-
+    calculateAge(date:any){
+      const bdate = new Date(date);
+      const timeDiff = Math.abs(Date.now() - bdate.getTime() );
+      this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+      return this.age;
+      console.log("age",this.age);
+    }
 
   getAllUsers() {
     // this.userData=[];
@@ -125,18 +124,37 @@ export class UserManagementComponent implements OnInit {
     this.router.navigate(['/admin/user-detail'], { queryParams: { id: userId } })
   }
 
-  blockUnblockUser(id:any, event:any){
+  blockUnblockUser(id:any,isBlocked:any, event:any){
+    console.log("user id ",id);
 
-    let data = { "authId" : 0 ,
-                 "data" : this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],id)
-              }
+  
+  if(isBlocked==true){
+    var userId={
+      "uuId":id,
+      "isBlocked":false
+    }
+  }else{
+    var userId={
+      "uuId":id,
+      "isBlocked":true
+    }
+  }
+    console.log("user id bloack/unblock",userId);
+    
+    
+    let data = { "authId" :0,
+                 "data":this.encrptDecryptService.encryptData(this.encrptDecryptService.secretKey[0],userId)
+               }
               console.log("data",data);
               
     this.authService.blockUnblockUser(data).subscribe(res => {
       console.log("block res",res);
-      if (res.response == 200) {
+      if (res.responseCode == 200) {
+        this.threeDService.hide();
         this.toastr.success(res.message);
+        this.getAllUsers();
       } else {
+        this.threeDService.hide();
         this.toastr.error(res.message);
       }
     }, error => {

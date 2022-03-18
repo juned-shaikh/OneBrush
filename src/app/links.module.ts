@@ -16,7 +16,7 @@ export class Links {
 
     //USERS
     public static USER_LIST = Links.BASE + '/api/user/get_all_users_account';
-    public static BLOCK_UNBLOCK_USER = Links.BASE + '/api/admin/block_user';
+    public static BLOCK_UNBLOCK_USER = Links.BASE + '/api/admin/block_unblock_user';
     public static UPDATE_USER_STATUS = Links.BASE + '/user/update-status';
     public static USER_RESET_PASSWORD = Links.BASE + '/user/reset-password';
     public static USER_VERIFY_REQUEST = Links.BASE + '/user/verify-request';
